@@ -208,12 +208,12 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .gallery .cap{position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.92);color:var(--navy-900);font-size:12px;font-weight:500;padding:5px 12px;border-radius:999px}
 
 /* ---- CTA ---- */
-.cta{background:var(--navy);border-radius:var(--r-xl);padding:56px;color:#fff;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;position:relative;overflow:hidden}
-.cta::before{content:"";position:absolute;left:-80px;bottom:-120px;width:320px;height:320px;border-radius:50%;background:rgba(236,169,14,.15)}
-.cta::after{content:"";position:absolute;right:20%;top:-140px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.06)}
-.cta h2{font-size:32px;font-weight:700;margin-bottom:8px;position:relative}
-.cta p{font-weight:300;opacity:.9;max-width:600px;position:relative}
-.cta .acts{display:flex;gap:12px;flex-wrap:wrap;position:relative}
+.cta-band{background:var(--navy);border-radius:var(--r-xl);padding:56px;color:#fff;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;position:relative;overflow:hidden}
+.cta-band::before{content:"";position:absolute;left:-80px;bottom:-120px;width:320px;height:320px;border-radius:50%;background:rgba(236,169,14,.15)}
+.cta-band::after{content:"";position:absolute;right:20%;top:-140px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.06)}
+.cta-band h2{font-size:32px;font-weight:700;margin-bottom:8px;position:relative}
+.cta-band p{font-weight:300;opacity:.9;max-width:600px;position:relative}
+.cta-band .acts{display:flex;gap:12px;flex-wrap:wrap;position:relative}
 
 /* ============ FOOTER ============ */
 .footer{background:var(--navy-900);color:rgba(255,255,255,.8);border-radius:48px 48px 0 0;padding:64px 0 0;margin-top:24px;font-size:14px}
@@ -241,7 +241,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .word{grid-template-columns:1fr}
   .countries{grid-template-columns:repeat(5,1fr)}
   .footer .grid{grid-template-columns:1fr 1fr}
-  .cta{grid-template-columns:1fr;padding:40px}
+  .cta-band{grid-template-columns:1fr;padding:40px}
 }
 @media (max-width:860px){
   .header .container{height:70px}
@@ -455,7 +455,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 <!-- ===== CTA ===== -->
 <section class="section" style="padding-bottom:0">
   <div class="container">
-    <div class="cta">
+    <div class="cta-band">
       <div><h2>โรงเรียนหรือหน่วยงานของคุณสนใจร่วมกับเรา?</h2><p>ติดต่อกรมอาเซียนเพื่อขอศึกษาดูงาน จัดกิจกรรมส่งเสริมความรู้เกี่ยวกับอาเซียน หรือสอบถามข้อมูลโครงการห้องสมุดอาเซียน</p></div>
       <div class="acts"><a class="btn btn-gold" href="#">ติดต่อเรา <svg class="icon"><use href="#i-arrow"/></svg></a><a class="btn btn-ghost" href="#"><svg class="icon"><use href="#i-phone"/></svg> 02 203 5000</a></div>
     </div>
