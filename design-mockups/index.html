@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASEAN Library — แบบดีไซน์หน้าแรก 3 แนวทาง</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#00468A;--navy-900:#001B3A;--gold:#ECA90E;--green:#10A58A;--bg:#EEF1F5;--line:#DCE1E8;--text:#1B1D22;--text-2:#4A5260;--text-3:#6B7280}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Kanit',system-ui,sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.icon{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.top{background:#fff;border-bottom:1px solid var(--line);padding:0 20px;height:64px;display:flex;align-items:center;gap:20px;flex:none}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{width:38px;height:38px}
+.brand b{font-size:15px;font-weight:600;color:var(--navy);display:block;line-height:1.1}
+.brand small{font-size:11px;color:var(--text-3)}
+.tabs{display:flex;gap:4px;background:var(--bg);padding:4px;border-radius:999px;margin-left:12px}
+.tabs button{padding:8px 16px;border-radius:999px;font-size:14px;font-weight:500;color:var(--text-2);display:flex;align-items:center;gap:8px;transition:all .15s;white-space:nowrap}
+.tabs button .n{width:22px;height:22px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:12px;font-weight:600}
+.tabs button.on{background:var(--navy);color:#fff;box-shadow:0 4px 12px rgba(0,70,138,.25)}
+.tabs button.on .n{background:var(--gold);color:var(--navy-900)}
+.spacer{flex:1}
+.devices{display:flex;gap:2px;background:var(--bg);padding:4px;border-radius:10px}
+.devices button{padding:6px 12px;border-radius:7px;font-size:13px;font-weight:500;color:var(--text-2);display:flex;align-items:center;gap:6px}
+.devices button.on{background:#fff;color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.open{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--navy);border:1.5px solid var(--line);padding:7px 14px;border-radius:999px;transition:all .15s}
+.open:hover{border-color:var(--navy);background:#EAF2FB}
+.main{flex:1;display:grid;grid-template-columns:300px 1fr;min-height:0}
+.side{background:#fff;border-right:1px solid var(--line);padding:22px;overflow:auto;font-size:14px}
+.side .k{font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--text-3);margin-bottom:6px}
+.side h2{font-size:20px;font-weight:600;color:var(--navy-900);line-height:1.25;margin-bottom:4px}
+.side .en{font-size:12px;color:var(--text-3);margin-bottom:14px}
+.side p{color:var(--text-2);font-weight:300;line-height:1.6;margin-bottom:14px}
+.side ul{list-style:none;display:grid;gap:8px;margin-bottom:18px}
+.side li{display:flex;gap:8px;align-items:flex-start;line-height:1.45}
+.side li .icon{color:var(--green);margin-top:3px}
+.side .sw{display:flex;gap:6px;margin-bottom:18px}
+.side .sw span{width:30px;height:30px;border-radius:8px;border:1px solid rgba(0,0,0,.08)}
+.side .fit{background:var(--bg);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--text-2)}
+.side .fit b{color:var(--navy);font-weight:600}
+.stage{position:relative;overflow:auto;padding:24px;display:flex;justify-content:center;align-items:flex-start}
+.frame{background:#fff;box-shadow:0 20px 60px rgba(0,27,58,.18);border-radius:14px;overflow:hidden;transition:width .3s cubic-bezier(.2,.7,.2,1);height:100%;width:100%;border:1px solid var(--line)}
+.frame.tablet{width:820px;border-radius:24px;border:8px solid #1B1D22}
+.frame.mobile{width:390px;border-radius:36px;border:10px solid #1B1D22}
+.frame iframe{width:100%;height:100%;border:0;display:block;background:#fff}
+@media (max-width:900px){
+  .main{grid-template-columns:1fr}
+  .side{display:none}
+  .top{height:auto;flex-wrap:wrap;padding:10px 14px;gap:10px}
+  .brand small,.open{display:none}
+  .tabs{margin-left:0}
+  .stage{padding:12px}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-desk" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></symbol>
+  <symbol id="i-tab" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="12" x2="12.01" y1="18" y2="18"/></symbol>
+  <symbol id="i-mob" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><line x1="12" x2="12.01" y1="18" y2="18"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="brand"><img src="assets/logo-asean-library.png" alt=""><div><b>โครงการห้องสมุดอาเซียน</b><small>แบบดีไซน์หน้าแรก 3 แนวทาง · อิง CI mfa.go.th</small></div></div>
+  <div class="tabs" role="tablist">
+    <button class="on" data-i="0"><span class="n">1</span> ทางการ</button>
+    <button data-i="1"><span class="n">2</span> Modern Editorial</button>
+    <button data-i="2"><span class="n">3</span> Learning Space</button>
+  </div>
+  <div class="spacer"></div>
+  <div class="devices">
+    <button class="on" data-d="desktop"><svg class="icon"><use href="#i-desk"/></svg> Desktop</button>
+    <button data-d="tablet"><svg class="icon"><use href="#i-tab"/></svg> Tablet</button>
+    <button data-d="mobile"><svg class="icon"><use href="#i-mob"/></svg> Mobile</button>
+  </div>
+  <a class="open" id="openLink" href="design-1-official.html" target="_blank">เปิดเต็มจอ <svg class="icon"><use href="#i-ext"/></svg></a>
+</header>
+
+<div class="main">
+  <aside class="side" id="side"></aside>
+  <div class="stage"><div class="frame" id="frame"><iframe id="view" src="design-1-official.html" title="ตัวอย่างดีไซน์"></iframe></div></div>
+</div>
+
+<script>
+const designs=[
+ {file:'design-1-official.html',k:'แบบที่ 1',t:'ทางการ · MFA Official',en:'Government / Institutional — ใกล้เคียง mfa.go.th ที่สุด',
+  p:'สืบทอดโครงสร้างและอารมณ์ของเว็บกระทรวงการต่างประเทศโดยตรง ให้ความรู้สึกน่าเชื่อถือ เป็นทางการ ผู้ใช้ที่คุ้นกับเว็บราชการใช้งานได้ทันที เหมาะกับการนำเสนอในฐานะเว็บไซต์หน่วยงานภายใต้กรมอาเซียน',
+  f:['แถบเมนูสีน้ำเงินเข้ม + ส่วนหัวสีขาวพร้อมชื่อไทย/อังกฤษ ตามแบบ mfa.go.th','สไลด์ไฮไลต์เต็มจอ + แถบสถิติโครงการซ้อนด้านล่าง','ข่าวเด่นแบบ 1 ใหญ่ + 3 เล็ก และบล็อกบริการ 4 สี (navy / blue / green / gold)','พื้นหลังลายสามเหลี่ยม หัวข้อขีดใต้สั้น ปุ่ม “ดูทั้งหมด ›” แบบ MFA','บทความแยกหมวด 6 เสา + แถบเกร็ดน่ารู้ด้านข้าง'],
+  sw:['#00468A','#0A3070','#025AA1','#10A58A','#ECA90E','#F5F6F8'],fit:'เหมาะกับ: <b>ผู้บริหาร/หน่วยงานราชการ</b> ที่ต้องการความสอดคล้องกับเว็บกระทรวงสูงสุด'},
+ {file:'design-2-editorial.html',k:'แบบที่ 2',t:'Modern Editorial',en:'Clean & content-first — สมัยใหม่ เน้นเนื้อหา',
+  p:'ยังคง CI สีน้ำเงินและฟอนต์ Kanit แต่ปรับโครงสร้างให้ทันสมัยขึ้น ใช้พื้นที่ว่างมาก ตัวอักษรใหญ่ จัดข่าวแบบ Bento grid และบทความแบบนิตยสาร อ่านง่ายทั้งบนมือถือและเดสก์ท็อป',
+  f:['Hero แบบแบ่งครึ่ง หัวข้อใหญ่ + รูปมุมโค้ง + การ์ดลอย “เปิดล่าสุด”','แถบข่าววิ่ง (ticker) แสดงข่าวล่าสุด','ข่าวพิธีเปิดแบบ Bento grid มีช่องสถิติแทรก','บทความแบบ editorial list พร้อมแท็บ 6 หมวด','เกร็ดน่ารู้เป็น flashcard เลื่อนแนวนอน + ค้นหาเครือข่ายรายภูมิภาค'],
+  sw:['#00468A','#001B3A','#EAF2FB','#10A58A','#ECA90E','#FFFFFF'],fit:'เหมาะกับ: <b>ผู้ใช้ทั่วไป/สื่อ</b> ที่ต้องการภาพลักษณ์ทันสมัยและอ่านเนื้อหาสะดวก'},
+ {file:'design-3-learning.html',k:'แบบที่ 3',t:'Learning Space',en:'Warm & youthful — เป็นมิตรกับนักเรียน ครู และชุมชน',
+  p:'ออกแบบจากกลุ่มเป้าหมายหลักของโครงการ คือเยาวชนและครู ใช้มุมโค้ง สีเขียว/ทองจากพาเลต MFA เป็นสีเสริม รูปภาพจัดเป็นคอลลาจ และมีเส้นทาง “คุณคือใคร” ให้ผู้ใช้แต่ละกลุ่มเข้าถึงสิ่งที่ต้องการทันที',
+  f:['Hero พื้นน้ำเงินไล่เฉด + คอลลาจรูป 3 ใบ + ป้าย “76 แห่ง”','การ์ดเส้นทางผู้ใช้ 4 กลุ่ม: นักเรียน / ครู / ชุมชน / หน่วยงาน','บทความจัดตาม 3 เสาหลักอาเซียน แยกสี','การ์ด “คำศัพท์วันนี้” + รู้จัก 10 ประเทศสมาชิก','แกลเลอรีภาพแบบโมเสก + CTA เชิญร่วมโครงการ'],
+  sw:['#00468A','#0B5FB0','#10A58A','#ECA90E','#FEF5E0','#F5F6F8'],fit:'เหมาะกับ: <b>นักเรียน ครู และชุมชน</b> — เน้นความอบอุ่นและการมีส่วนร่วม'}
+];
+const side=document.getElementById('side'),view=document.getElementById('view'),frame=document.getElementById('frame'),openLink=document.getElementById('openLink');
+function show(i){
+  const d=designs[i];
+  view.src=d.file;openLink.href=d.file;
+  side.innerHTML=`<div class="k">${d.k}</div><h2>${d.t}</h2><div class="en">${d.en}</div><p>${d.p}</p>
+  <div class="k">จุดเด่น</div><ul>${d.f.map(x=>`<li><svg class="icon"><use href="#i-check"/></svg><span>${x}</span></li>`).join('')}</ul>
+  <div class="k">พาเลตสี</div><div class="sw">${d.sw.map(c=>`<span style="background:${c}" title="${c}"></span>`).join('')}</div>
+  <div class="fit">${d.fit}</div>`;
+  document.querySelectorAll('.tabs button').forEach((b,n)=>b.classList.toggle('on',n===i));
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>show(+b.dataset.i));
+document.querySelectorAll('.devices button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.devices button').forEach(x=>x.classList.remove('on'));b.classList.add('on');frame.className='frame '+(b.dataset.d==='desktop'?'':b.dataset.d)});
+show(0);
+</script>
+</body>
+</html>

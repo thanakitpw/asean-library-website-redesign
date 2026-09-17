@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>โครงการห้องสมุดอาเซียน — แบบที่ 1 ทางการ (MFA Official)</title>
+<meta name="description" content="แบบดีไซน์หน้าแรกเว็บไซต์โครงการห้องสมุดอาเซียน กรมอาเซียน กระทรวงการต่างประเทศ — แนวทางการ อิง CI mfa.go.th">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ DESIGN TOKENS (อิง CI mfa.go.th) ============ */
+:root{
+  --navy:#00468A;        /* primary — mfa.go.th nav */
+  --navy-700:#0A3070;    /* dark navy — mfa hero/footer bar */
+  --navy-900:#001B3A;
+  --blue:#025AA1;        /* secondary nav row */
+  --blue-50:#EAF2FB;
+  --green:#10A58A;       /* mfa service block */
+  --gold:#ECA90E;        /* mfa service block */
+  --bg:#F5F6F8;
+  --surface:#FFFFFF;
+  --line:#E1E5EB;
+  --text:#242427;
+  --text-2:#4A5260;
+  --text-3:#6B7280;
+  --radius:6px;
+  --shadow:0 6px 20px rgba(0,27,58,.08);
+  --font:'Kanit',system-ui,sans-serif;
+  --container:1240px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-size:16px;line-height:1.6;color:var(--text);background:var(--surface);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.container{max-width:var(--container);margin:0 auto;padding:0 24px}
+.icon{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.skip{position:absolute;left:-999px;top:8px;background:var(--navy);color:#fff;padding:8px 14px;border-radius:4px;z-index:999}
+.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* MFA-style geometric triangle pattern */
+.pattern{background-color:var(--bg);background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='720' height='720' viewBox='0 0 720 720'><polygon points='0,0 360,0 0,360' fill='%23ffffff' fill-opacity='.75'/><polygon points='360,0 720,360 720,0' fill='%2300468A' fill-opacity='.035'/><polygon points='0,360 360,720 0,720' fill='%2300468A' fill-opacity='.045'/><polygon points='360,360 720,360 540,720' fill='%23ffffff' fill-opacity='.85'/><polygon points='180,180 540,180 360,540' fill='%2300468A' fill-opacity='.03'/></svg>");background-size:720px 720px}
+
+/* ============ TOP BAR ============ */
+.topbar{background:var(--navy-700);color:#fff;font-size:13px}
+.topbar .container{display:flex;align-items:center;justify-content:space-between;height:34px}
+.topbar .left{display:flex;align-items:center;gap:8px;opacity:.9}
+.topbar .right{display:flex;align-items:center;gap:18px}
+.fontsize{display:flex;gap:4px;align-items:center}
+.fontsize button{width:24px;height:24px;border-radius:3px;display:grid;place-items:center;line-height:1;opacity:.85}
+.fontsize button:hover{background:rgba(255,255,255,.15);opacity:1}
+.fontsize button:nth-child(1){font-size:11px}.fontsize button:nth-child(2){font-size:13px}.fontsize button:nth-child(3){font-size:15px}
+.lang{display:flex;gap:2px}
+.lang a{padding:2px 6px;border-radius:3px;opacity:.7}
+.lang a.on{background:#fff;color:var(--navy);opacity:1;font-weight:500}
+.social{display:flex;gap:6px}
+.social a{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:13px;transition:background .2s}
+.social a:hover{background:rgba(255,255,255,.3)}
+
+/* ============ HEADER ============ */
+.header{background:#fff;border-bottom:1px solid var(--line)}
+.header .container{display:flex;align-items:center;justify-content:space-between;gap:24px;height:96px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand img{width:70px;height:70px}
+.brand .th{font-size:24px;font-weight:600;color:var(--navy);line-height:1.15}
+.brand .en{font-size:13px;color:var(--text-2);letter-spacing:.2px}
+.search{display:flex;align-items:center;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--bg);width:320px}
+.search input{flex:1;border:0;background:transparent;padding:10px 16px;font:inherit;font-size:14px;outline:none;color:var(--text)}
+.search button{width:44px;height:42px;display:grid;place-items:center;color:var(--navy);font-size:18px}
+.burger{display:none;width:44px;height:44px;place-items:center;font-size:24px;color:var(--navy)}
+
+/* ============ NAV ============ */
+.nav{background:var(--navy);color:#fff;position:sticky;top:0;z-index:50;box-shadow:0 2px 8px rgba(0,27,58,.15)}
+.nav ul{display:flex;align-items:stretch}
+.nav > .container{padding:0 12px}
+.nav li{position:relative}
+.nav li > a{display:flex;align-items:center;gap:6px;padding:0 18px;height:50px;font-size:15px;font-weight:500;transition:background .2s;white-space:nowrap}
+.nav li > a:hover,.nav li.on > a{background:var(--navy-700)}
+.nav li.on > a{box-shadow:inset 0 -3px 0 var(--gold)}
+.nav .icon{font-size:14px;opacity:.8}
+.dd{position:absolute;top:100%;left:0;min-width:260px;background:#fff;color:var(--text);box-shadow:var(--shadow);border-top:3px solid var(--gold);opacity:0;visibility:hidden;transform:translateY(8px);transition:all .2s var(--ease);padding:8px 0}
+.nav li:hover .dd,.nav li:focus-within .dd{opacity:1;visibility:visible;transform:none}
+.dd a{display:block;padding:9px 18px;font-size:14px;transition:background .15s}
+.dd a:hover{background:var(--blue-50);color:var(--navy)}
+.nav .spacer{flex:1}
+.nav .hot a{background:var(--gold);color:var(--navy-900);font-weight:600}
+.nav .hot a:hover{background:#f5b62a}
+
+/* ============ HERO SLIDER ============ */
+.hero{position:relative;height:520px;background:var(--navy-900);overflow:hidden}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .9s var(--ease)}
+.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover}
+.slide::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,27,58,.86) 0%,rgba(0,27,58,.55) 45%,rgba(0,27,58,.05) 100%)}
+.slide .text{position:absolute;inset:0;z-index:2;display:flex;align-items:center}
+.slide .text .container{width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:13px;font-weight:500;padding:5px 12px;border-radius:999px;backdrop-filter:blur(4px)}
+.slide h1,.slide h2{font-size:48px;font-weight:700;color:#fff;line-height:1.15;margin:18px 0 12px;max-width:640px;text-shadow:0 2px 12px rgba(0,0,0,.25)}
+.slide p{color:rgba(255,255,255,.9);font-size:18px;font-weight:300;max-width:560px}
+.slide .cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:500;font-size:15px;transition:all .2s var(--ease);cursor:pointer}
+.btn-primary{background:var(--gold);color:var(--navy-900)}
+.btn-primary:hover{background:#f5b62a;transform:translateY(-1px)}
+.btn-ghost{border:1.5px solid rgba(255,255,255,.7);color:#fff}
+.btn-ghost:hover{background:#fff;color:var(--navy)}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{background:var(--navy-700)}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:48px;height:56px;background:rgba(0,27,58,.45);border:1px solid rgba(255,255,255,.35);color:#fff;display:grid;place-items:center;font-size:26px;transition:background .2s}
+.arrow:hover{background:var(--navy)}
+.arrow.prev{left:0;border-left:0;border-radius:0 6px 6px 0}
+.arrow.next{right:0;border-right:0;border-radius:6px 0 0 6px}
+.dots{position:absolute;bottom:64px;left:0;right:0;z-index:3;display:flex;justify-content:center;gap:8px}
+.dots button{width:36px;height:4px;background:rgba(255,255,255,.4);border-radius:2px;transition:all .2s}
+.dots button.on{background:var(--gold);width:56px}
+
+/* ============ STATS ============ */
+.stats{position:relative;z-index:4;margin-top:-44px}
+.stats .grid{background:#fff;border-radius:8px;box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(4,1fr);overflow:hidden}
+.stat{display:flex;align-items:center;gap:16px;padding:24px 28px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat .ic{width:52px;height:52px;border-radius:12px;background:var(--blue-50);color:var(--navy);display:grid;place-items:center;font-size:26px;flex:none}
+.stat .n{font-size:32px;font-weight:700;color:var(--navy);line-height:1;font-variant-numeric:tabular-nums}
+.stat .n small{font-size:14px;font-weight:400;color:var(--text-3);margin-left:4px}
+.stat .l{font-size:14px;color:var(--text-2);margin-top:4px}
+
+/* ============ SECTIONS ============ */
+.section{padding:64px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:30px}
+.sec-title{font-size:26px;font-weight:600;position:relative;padding-bottom:12px;line-height:1.25}
+.sec-title::after{content:"";position:absolute;left:0;bottom:0;width:44px;height:3px;background:var(--navy)}
+.sec-title small{display:block;font-size:14px;font-weight:400;color:var(--text-3);margin-top:2px}
+.btn-all{display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:#fff;border-radius:999px;padding:8px 10px 8px 18px;font-size:14px;font-weight:500;transition:background .2s;white-space:nowrap}
+.btn-all:hover{background:var(--navy-700)}
+
+/* ---- Featured news (MFA ข่าวเด่น layout) ---- */
+.featured{display:grid;grid-template-columns:1fr 300px;gap:16px}
+.feat-main{position:relative;border-radius:8px;overflow:hidden;min-height:440px;background:var(--navy-900)}
+.feat-main img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .6s var(--ease)}
+.feat-main:hover img{transform:scale(1.04)}
+.feat-main .cap{position:absolute;inset:auto 0 0 0;padding:120px 32px 28px;background:linear-gradient(180deg,transparent,rgba(0,27,58,.92));color:#fff}
+.tag{display:inline-block;background:var(--gold);color:var(--navy-900);font-size:12px;font-weight:600;padding:3px 10px;border-radius:4px;letter-spacing:.2px}
+.feat-main h3{font-size:26px;font-weight:600;line-height:1.3;margin:12px 0 8px}
+.meta{display:flex;align-items:center;gap:14px;font-size:13px;color:var(--text-3)}
+.meta span{display:inline-flex;align-items:center;gap:5px}
+.feat-main .meta{color:rgba(255,255,255,.85)}
+.feat-side{display:flex;flex-direction:column;gap:16px}
+.feat-item{display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;flex:1;transition:all .2s var(--ease)}
+.feat-item:hover{border-color:var(--navy);box-shadow:var(--shadow);transform:translateY(-2px)}
+.feat-item img{width:110px;height:100%;object-fit:cover;flex:none}
+.feat-item .b{padding:12px 14px 12px 0;display:flex;flex-direction:column;justify-content:center}
+.feat-item h4{font-size:14px;font-weight:500;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.feat-item .meta{margin-top:6px;font-size:12px}
+
+/* ---- Quick links block (MFA บริการประชาชน layout) ---- */
+.quick{display:grid;grid-template-columns:400px 1fr;border-radius:8px;overflow:hidden;box-shadow:var(--shadow)}
+.quick .menu a{display:flex;align-items:center;gap:16px;padding:0 28px;height:96px;color:#fff;font-weight:500;font-size:17px;transition:filter .2s}
+.quick .menu a:hover{filter:brightness(1.12)}
+.quick .menu a .icon{font-size:26px}
+.quick .menu a:nth-child(1){background:var(--navy-700)}
+.quick .menu a:nth-child(2){background:var(--navy)}
+.quick .menu a:nth-child(3){background:var(--green)}
+.quick .menu a:nth-child(4){background:var(--gold);color:var(--navy-900)}
+.quick .menu a span{display:block}
+.quick .menu a small{display:block;font-size:13px;font-weight:300;opacity:.85}
+.quick .pic{position:relative;background:var(--navy-900)}
+.quick .pic img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.quick .pic .ov{position:absolute;left:0;right:0;bottom:0;padding:28px 32px;background:linear-gradient(0deg,rgba(0,27,58,.85),transparent);color:#fff}
+.quick .pic h3{font-size:22px;font-weight:600}
+.quick .pic p{font-size:14px;font-weight:300;opacity:.9;max-width:520px}
+
+/* ---- News cards ---- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;transition:all .25s var(--ease)}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-3px);border-color:transparent}
+.card .img{aspect-ratio:16/10;overflow:hidden;background:var(--bg)}
+.card .img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.card:hover .img img{transform:scale(1.05)}
+.card .b{padding:18px 20px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card h3{font-size:17px;font-weight:500;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card p{font-size:14px;color:var(--text-2);font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .meta{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line)}
+
+/* ---- Articles + Tips ---- */
+.two{display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start}
+.cats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.cats a{font-size:13px;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--text-2);transition:all .15s}
+.cats a:hover,.cats a.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.art-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.art{position:relative;background:#fff;border:1px solid var(--line);border-radius:8px;padding:22px 22px 18px 22px;margin-top:18px;transition:all .2s var(--ease)}
+.art:hover{border-color:var(--navy);box-shadow:var(--shadow)}
+.art .ic{position:absolute;top:-18px;left:18px;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:20px;border:3px solid #fff}
+.art .cat{font-size:12px;color:var(--navy);font-weight:500;margin-left:56px}
+.art h3{font-size:16px;font-weight:500;line-height:1.45;margin:8px 0 6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.art p{font-size:14px;color:var(--text-2);font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.art .meta{margin-top:12px}
+.side{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.side .hd{background:var(--navy);color:#fff;padding:14px 20px;font-weight:500;display:flex;align-items:center;gap:8px;font-size:16px}
+.side .hd .icon{font-size:20px;color:var(--gold)}
+.side ul li{border-bottom:1px solid var(--line)}
+.side ul li:last-child{border-bottom:0}
+.side ul a{display:flex;gap:12px;padding:14px 20px;transition:background .15s;align-items:flex-start}
+.side ul a:hover{background:var(--blue-50)}
+.side .k{flex:none;width:40px;height:40px;border-radius:8px;background:var(--blue-50);color:var(--navy);display:grid;place-items:center;font-weight:600;font-size:13px}
+.side .t{font-size:14px;font-weight:500;line-height:1.4}
+.side .s{font-size:12px;color:var(--text-3);margin-top:2px;font-weight:300}
+.side .ft{padding:14px 20px;border-top:1px solid var(--line);background:var(--bg)}
+.side .ft a{color:var(--navy);font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:4px}
+
+/* ---- About band ---- */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.about .pics{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.about .pics img{border-radius:8px;width:100%;aspect-ratio:4/3;object-fit:cover;box-shadow:var(--shadow)}
+.about .pics img:nth-child(2){margin-top:32px}
+.about .badge{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:14px 24px;border-radius:8px;text-align:center;box-shadow:var(--shadow);white-space:nowrap}
+.about .badge b{display:block;font-size:26px;line-height:1}
+.about .badge span{font-size:13px;font-weight:300}
+.about h2{font-size:30px;font-weight:600;line-height:1.3;color:var(--navy);margin-bottom:16px}
+.about h2 em{font-style:normal;color:var(--gold)}
+.about p{color:var(--text-2);font-weight:300;margin-bottom:14px;font-size:16px}
+.checks{display:grid;gap:10px;margin:20px 0 26px}
+.checks li{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.checks .icon{color:var(--green);font-size:20px;margin-top:2px}
+
+/* ---- CTA band ---- */
+.band{background:var(--navy);color:#fff;text-align:center;padding:56px 0;position:relative;overflow:hidden}
+.band::before{content:"";position:absolute;inset:0;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='720' height='720' viewBox='0 0 720 720'><polygon points='0,0 360,0 0,360' fill='%23ffffff' fill-opacity='.04'/><polygon points='360,0 720,360 720,0' fill='%23ffffff' fill-opacity='.06'/><polygon points='0,360 360,720 0,720' fill='%23ffffff' fill-opacity='.05'/><polygon points='360,360 720,360 540,720' fill='%23ffffff' fill-opacity='.04'/></svg>");background-size:720px}
+.band .container{position:relative}
+.band h2{font-size:28px;font-weight:600;margin-bottom:8px}
+.band p{font-weight:300;opacity:.9;max-width:640px;margin:0 auto 24px}
+.band form{display:flex;max-width:620px;margin:0 auto;background:#fff;border-radius:999px;padding:6px;gap:6px}
+.band input{flex:1;border:0;padding:10px 20px;font:inherit;font-size:15px;outline:none;color:var(--text);background:transparent;min-width:0}
+.band .btn{padding:10px 22px}
+
+/* ---- Related sites ---- */
+.links{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 48px}
+.links a{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px;transition:color .15s}
+.links a:hover{color:var(--navy)}
+.links .icon{width:28px;height:28px;background:var(--navy);color:#fff;border-radius:6px;padding:6px;font-size:16px}
+.links .ext{margin-left:auto;width:16px;height:16px;color:var(--text-3);background:none;padding:0;border-radius:0}
+
+/* ============ FOOTER ============ */
+.footer{background:var(--bg);border-top:1px solid var(--line);padding:56px 0 40px;font-size:14px}
+.footer .grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.1fr;gap:40px}
+.footer .brand .th{font-size:18px}
+.footer .brand img{width:64px;height:64px}
+.footer p{color:var(--text-2);font-weight:300;margin-top:14px}
+.footer h4{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:14px;text-transform:uppercase;letter-spacing:.3px}
+.footer li{margin-bottom:8px}
+.footer li a{color:var(--text-2);transition:color .15s;display:inline-flex;gap:6px;align-items:center}
+.footer li a:hover{color:var(--navy)}
+.footer .contact li{display:flex;gap:10px;align-items:flex-start;color:var(--text-2)}
+.footer .contact .icon{color:var(--navy);font-size:18px;margin-top:3px}
+.footer .social{margin-top:16px}
+.footer .social a{background:var(--navy);color:#fff;width:34px;height:34px;font-size:16px}
+.footer .social a:hover{background:var(--navy-700)}
+.copy{background:var(--navy-700);color:rgba(255,255,255,.85);font-size:13px;text-align:center;padding:16px 0;font-weight:300}
+.copy b{font-weight:500;color:#fff}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1100px){
+  .featured{grid-template-columns:1fr}
+  .feat-side{flex-direction:row}
+  .feat-item img{width:90px}
+  .two{grid-template-columns:1fr}
+  .quick{grid-template-columns:1fr}
+  .quick .pic{min-height:300px}
+  .footer .grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  .topbar .left{display:none}
+  .topbar .container{justify-content:flex-end}
+  .header .container{height:76px}
+  .brand img{width:52px;height:52px}
+  .brand .th{font-size:18px}.brand .en{font-size:11px}
+  .search{display:none}
+  .burger{display:grid}
+  .nav ul{display:none;flex-direction:column}
+  .nav.open ul{display:flex}
+  .nav li > a{height:48px}
+  .dd{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:0;background:var(--navy-700);color:#fff;padding:0 0 6px}
+  .dd a{padding:8px 32px;color:rgba(255,255,255,.85)}
+  .dd a:hover{background:rgba(255,255,255,.08);color:#fff}
+  .brand .en{display:none}
+  .hero{height:560px}
+  .slide .text{align-items:flex-start;padding-top:40px}
+  .slide h1,.slide h2{font-size:30px;margin:14px 0 10px}
+  .slide p{font-size:15px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .slide .cta{margin-top:18px}
+  .slide .btn{padding:10px 18px;font-size:14px}
+  .dots{bottom:76px}
+  .arrow{display:none}
+  .stats .grid{grid-template-columns:1fr 1fr}
+  .stat{border-bottom:1px solid var(--line)}
+  .stat:nth-child(even){border-right:0}
+  .section{padding:48px 0}
+  .cards{grid-template-columns:1fr}
+  .art-grid{grid-template-columns:1fr}
+  .about{grid-template-columns:1fr;gap:48px}
+  .links{grid-template-columns:1fr}
+  .feat-side{flex-direction:column}
+  .band form{flex-direction:column;border-radius:16px}
+  .band .btn{justify-content:center}
+}
+@media (max-width:520px){
+  .stats .grid{grid-template-columns:1fr}
+  .stat{border-right:0}
+  .footer .grid{grid-template-columns:1fr}
+  .sec-head{flex-direction:column;align-items:flex-start}
+  .slide h1,.slide h2{font-size:28px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">ข้ามไปยังเนื้อหาหลัก</a>
+
+<!-- SVG icon sprite (Lucide) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-library" viewBox="0 0 24 24"><path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/></symbol>
+  <symbol id="i-school" viewBox="0 0 24 24"><path d="M14 22v-4a2 2 0 1 0-4 0v4"/><path d="m18 10 4 2v10H2V12l4-2"/><path d="M18 5v17"/><path d="m4 6 8-4 8 4"/><path d="M6 5v17"/><circle cx="12" cy="9" r="2"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  <symbol id="i-news" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></symbol>
+  <symbol id="i-landmark" viewBox="0 0 24 24"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M4 4l16 16"/><path d="M20 4 4 20"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></symbol>
+</svg>
+
+<!-- ===== TOP BAR ===== -->
+<div class="topbar">
+  <div class="container">
+    <div class="left"><svg class="icon"><use href="#i-landmark"/></svg> กรมอาเซียน กระทรวงการต่างประเทศ &nbsp;·&nbsp; Department of ASEAN Affairs, MFA Thailand</div>
+    <div class="right">
+      <div class="fontsize" aria-label="ปรับขนาดตัวอักษร"><button>ก</button><button>ก</button><button>ก</button></div>
+      <div class="lang"><a href="#" class="on">TH</a><a href="#">EN</a></div>
+      <div class="social">
+        <a href="#" aria-label="Facebook"><svg class="icon"><use href="#i-fb"/></svg></a>
+        <a href="#" aria-label="X"><svg class="icon"><use href="#i-x"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg class="icon"><use href="#i-ig"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg class="icon"><use href="#i-yt"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="container">
+    <a class="brand" href="#">
+      <img src="assets/logo-asean-library.png" alt="ASEAN Library by ASEAN-Thailand">
+      <div>
+        <div class="th">โครงการห้องสมุดอาเซียน</div>
+        <div class="en">ASEAN Library Project · Department of ASEAN Affairs, Ministry of Foreign Affairs</div>
+      </div>
+    </a>
+    <form class="search" role="search" onsubmit="return false">
+      <input type="search" placeholder="ค้นหาข่าว บทความ หรือชื่อโรงเรียน…" aria-label="ค้นหา">
+      <button type="submit" aria-label="ค้นหา"><svg class="icon"><use href="#i-search"/></svg></button>
+    </form>
+    <button class="burger" aria-label="เมนู" onclick="document.querySelector('.nav').classList.toggle('open')"><svg class="icon"><use href="#i-menu"/></svg></button>
+  </div>
+</header>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" aria-label="เมนูหลัก">
+  <div class="container">
+    <ul>
+      <li class="on"><a href="#">หน้าแรก</a></li>
+      <li><a href="#">เกี่ยวกับโครงการ <svg class="icon"><use href="#i-chev-d"/></svg></a>
+        <div class="dd"><a href="#">ที่มาของห้องสมุดอาเซียน</a><a href="#">วัตถุประสงค์และกลุ่มเป้าหมาย</a><a href="#">รูปแบบห้องสมุดอาเซียน</a><a href="#">เครือข่ายห้องสมุดอาเซียน</a></div>
+      </li>
+      <li><a href="#">กระดานข่าว <svg class="icon"><use href="#i-chev-d"/></svg></a>
+        <div class="dd"><a href="#">ข่าวห้องสมุดอาเซียน</a><a href="#">ข่าวพิธีเปิดห้องสมุดอาเซียน</a><a href="#">กิจกรรมและประกาศ</a></div>
+      </li>
+      <li><a href="#">บทความ <svg class="icon"><use href="#i-chev-d"/></svg></a>
+        <div class="dd"><a href="#">เกี่ยวกับอาเซียน</a><a href="#">เสาการเมืองและความมั่นคง</a><a href="#">เสาเศรษฐกิจ</a><a href="#">เสาสังคมและวัฒนธรรม</a><a href="#">อาเซียนกับภาคีภายนอก</a><a href="#">ก้าวไปกับอาเซียน</a></div>
+      </li>
+      <li><a href="#">เกร็ดน่ารู้</a></li>
+      <li><a href="#">คลังภาพ</a></li>
+      <li><a href="#">ติดต่อเรา</a></li>
+      <li class="spacer" aria-hidden="true"></li>
+      <li class="hot"><a href="#"><svg class="icon"><use href="#i-pin"/></svg> ค้นหาห้องสมุดใกล้คุณ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+<!-- ===== HERO ===== -->
+<section class="hero" aria-label="ไฮไลต์">
+  <div class="slide on">
+    <img src="assets/news-76.jpg" alt="พิธีเปิดห้องสมุดอาเซียน" style="object-position:center 35%">
+    <div class="text"><div class="container">
+      <span class="eyebrow"><svg class="icon"><use href="#i-flag"/></svg> 1 จังหวัด · 1 โรงเรียน · 1 ห้องสมุดอาเซียน</span>
+      <h1>โครงการห้องสมุดอาเซียน<br>เพื่อประชาชนและเยาวชนไทย</h1>
+      <p>ศูนย์การเรียนรู้เกี่ยวกับอาเซียนในโรงเรียนทั่วประเทศ พร้อมหนังสือ สื่อการเรียนการสอน และบอร์ดนิทรรศการ เพื่อเตรียมเยาวชนไทยสู่ประชาคมอาเซียน</p>
+      <div class="cta"><a class="btn btn-primary" href="#">ข่าวพิธีเปิดล่าสุด <svg class="icon"><use href="#i-arrow"/></svg></a><a class="btn btn-ghost" href="#">เกี่ยวกับโครงการ</a></div>
+    </div></div>
+  </div>
+  <div class="slide">
+    <img src="assets/news-74.jpg" alt="พิธีเปิดห้องสมุดอาเซียนแห่งที่ 76">
+    <div class="text"><div class="container">
+      <span class="eyebrow"><svg class="icon"><use href="#i-news"/></svg> ข่าวพิธีเปิดล่าสุด</span>
+      <h2>พิธีเปิดห้องสมุดอาเซียน<br>แห่งที่ 74 จังหวัดชุมพร</h2>
+      <p>ณ โรงเรียนมาบอำมฤตวิทยา จังหวัดชุมพร · 26 ธันวาคม 2567</p>
+      <div class="cta"><a class="btn btn-primary" href="#">อ่านข่าว <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    </div></div>
+  </div>
+  <div class="slide">
+    <img src="assets/news-75.jpg" alt="พิธีเปิดห้องสมุดอาเซียนแห่งที่ 75">
+    <div class="text"><div class="container">
+      <span class="eyebrow"><svg class="icon"><use href="#i-news"/></svg> ข่าวพิธีเปิด</span>
+      <h2>พิธีเปิดห้องสมุดอาเซียน<br>แห่งที่ 75 จังหวัดยะลา</h2>
+      <p>ณ โรงเรียนนิบงชนูปถัมภ์ จังหวัดยะลา · 16 สิงหาคม 2568</p>
+      <div class="cta"><a class="btn btn-primary" href="#">อ่านข่าว <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    </div></div>
+  </div>
+  <button class="arrow prev" aria-label="ก่อนหน้า"><svg class="icon"><use href="#i-chev-l"/></svg></button>
+  <button class="arrow next" aria-label="ถัดไป"><svg class="icon"><use href="#i-chev-r"/></svg></button>
+  <div class="dots" role="tablist"><button class="on" aria-label="สไลด์ 1"></button><button aria-label="สไลด์ 2"></button><button aria-label="สไลด์ 3"></button></div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section class="stats"><div class="container"><div class="grid">
+  <div class="stat"><div class="ic"><svg class="icon"><use href="#i-library"/></svg></div><div><div class="n">76 <small>แห่ง</small></div><div class="l">ห้องสมุดอาเซียนที่ส่งมอบแล้ว</div></div></div>
+  <div class="stat"><div class="ic"><svg class="icon"><use href="#i-pin"/></svg></div><div><div class="n">76 <small>จังหวัด</small></div><div class="l">ครอบคลุมทุกภูมิภาคของไทย</div></div></div>
+  <div class="stat"><div class="ic"><svg class="icon"><use href="#i-clock"/></svg></div><div><div class="n">2557</div><div class="l">ปีที่เริ่มดำเนินโครงการ</div></div></div>
+  <div class="stat"><div class="ic"><svg class="icon"><use href="#i-globe"/></svg></div><div><div class="n">10 <small>ประเทศ</small></div><div class="l">ประเทศสมาชิกอาเซียน</div></div></div>
+</div></div></section>
+
+<!-- ===== FEATURED NEWS ===== -->
+<section class="section">
+  <div class="container">
+    <div class="sec-head"><h2 class="sec-title">ข่าวเด่น <small>พิธีเปิดและกิจกรรมล่าสุดของโครงการ</small></h2><a class="btn-all" href="#">ดูทั้งหมด <svg class="icon"><use href="#i-chev-r"/></svg></a></div>
+    <div class="featured">
+      <a class="feat-main" href="#">
+        <img src="assets/news-76.jpg" alt="">
+        <div class="cap">
+          <span class="tag">พิธีเปิด · แห่งที่ 76</span>
+          <h3>พิธีเปิดห้องสมุดอาเซียนแห่งที่ 76 ณ โรงเรียนนราธิวาส จังหวัดนราธิวาส</h3>
+          <div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 25 ส.ค. 2568</span><span><svg class="icon"><use href="#i-pin"/></svg> นราธิวาส</span></div>
+        </div>
+      </a>
+      <div class="feat-side">
+        <a class="feat-item" href="#"><img src="assets/news-75.jpg" alt=""><div class="b"><h4>พิธีเปิดห้องสมุดอาเซียนแห่งที่ 75 ณ โรงเรียนนิบงชนูปถัมภ์ จังหวัดยะลา</h4><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 16 ส.ค. 2568</span></div></div></a>
+        <a class="feat-item" href="#"><img src="assets/news-74.jpg" alt=""><div class="b"><h4>พิธีเปิดห้องสมุดอาเซียนแห่งที่ 74 ณ โรงเรียนมาบอำมฤตวิทยา จังหวัดชุมพร</h4><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 26 ธ.ค. 2567</span></div></div></a>
+        <a class="feat-item" href="#"><img src="assets/news-70.jpg" alt=""><div class="b"><h4>พิธีเปิดห้องสมุดอาเซียนแห่งที่ 70 ณ โรงเรียนอนุบาลองครักษ์ จังหวัดนครนายก</h4><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 28 มิ.ย. 2566</span></div></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUICK LINKS (MFA บริการประชาชน style) ===== -->
+<section class="section pattern">
+  <div class="container">
+    <div class="sec-head"><h2 class="sec-title">บริการและข้อมูลโครงการ <small>สำหรับโรงเรียน ครู นักเรียน และหน่วยงานที่สนใจ</small></h2></div>
+    <div class="quick">
+      <div class="menu">
+        <a href="#"><svg class="icon"><use href="#i-book"/></svg><span>ที่มาของห้องสมุดอาเซียน<small>ความเป็นมา วัตถุประสงค์ กลุ่มเป้าหมาย</small></span></a>
+        <a href="#"><svg class="icon"><use href="#i-pin"/></svg><span>เครือข่ายห้องสมุด 76 แห่ง<small>รายชื่อโรงเรียนและที่ตั้งทั่วประเทศ</small></span></a>
+        <a href="#"><svg class="icon"><use href="#i-users"/></svg><span>ขอเข้าศึกษาดูงาน<small>สำหรับหน่วยงานภาครัฐและเอกชน</small></span></a>
+        <a href="#"><svg class="icon"><use href="#i-download"/></svg><span>ดาวน์โหลดสื่อการเรียนรู้<small>เอกสาร บอร์ดนิทรรศการ และสื่อประกอบ</small></span></a>
+      </div>
+      <div class="pic">
+        <img src="assets/news-74.jpg" alt="" loading="lazy">
+        <div class="ov"><h3>รูปแบบห้องสมุดอาเซียน</h3><p>บอร์ดนิทรรศการถาวร · ชุดคอมพิวเตอร์และซอฟต์แวร์สื่อการเรียนรู้ · โทรทัศน์จอทัชสกรีนเชื่อมต่อ DLTV · หนังสือและสื่อความรู้เกี่ยวกับอาเซียน 10 ประเทศ</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LATEST NEWS ===== -->
+<section class="section">
+  <div class="container">
+    <div class="sec-head"><h2 class="sec-title">ข่าวห้องสมุดอาเซียน <small>ความเคลื่อนไหวและกิจกรรมของโรงเรียนในเครือข่าย</small></h2><a class="btn-all" href="#">ดูทั้งหมด <svg class="icon"><use href="#i-chev-r"/></svg></a></div>
+    <div class="cards">
+      <a class="card" href="#"><div class="img"><img src="assets/news-69.jpg" alt="" loading="lazy"></div><div class="b"><span class="tag">พิธีเปิด</span><h3>พิธีเปิดห้องสมุดอาเซียนแห่งที่ 69 ณ โรงเรียนอนุบาลชัยนาท จังหวัดชัยนาท</h3><p>กรมอาเซียนส่งมอบห้องสมุดอาเซียนพร้อมสื่อการเรียนรู้ให้แก่โรงเรียนอนุบาลชัยนาท เพื่อเป็นศูนย์การเรียนรู้ของเยาวชนและชุมชน</p><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 23 ก.พ. 2564</span><span><svg class="icon"><use href="#i-pin"/></svg> ชัยนาท</span></div></div></a>
+      <a class="card" href="#"><div class="img"><img src="assets/news-68.jpg" alt="" loading="lazy"></div><div class="b"><span class="tag">พิธีเปิด</span><h3>พิธีเปิดห้องสมุดอาเซียนแห่งที่ 68 ณ โรงเรียนอนุบาลสิงห์บุรี จังหวัดสิงห์บุรี</h3><p>อธิบดีกรมอาเซียนเป็นประธานในพิธีส่งมอบห้องสมุดอาเซียน พร้อมจัดกิจกรรมเสริมความรู้เกี่ยวกับประชาคมอาเซียน</p><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 18 ก.พ. 2564</span><span><svg class="icon"><use href="#i-pin"/></svg> สิงห์บุรี</span></div></div></a>
+      <a class="card" href="#"><div class="img"><img src="assets/lib-interior.jpg" alt="" loading="lazy"></div><div class="b"><span class="tag">กิจกรรม</span><h3>รายงานสรุปผลการดำเนินกิจกรรมห้องสมุดอาเซียน โรงเรียนอนุบาลสิงห์บุรี</h3><p>สรุปการใช้ประโยชน์ห้องสมุดอาเซียนในการจัดการเรียนการสอนและกิจกรรมสำหรับนักเรียนและชุมชน</p><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 12 ม.ค. 2564</span><span><svg class="icon"><use href="#i-pin"/></svg> สิงห์บุรี</span></div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ARTICLES + TIPS ===== -->
+<section class="section pattern">
+  <div class="container two">
+    <div>
+      <div class="sec-head"><h2 class="sec-title">บทความ <small>ความรู้เกี่ยวกับอาเซียนและประชาคมอาเซียน</small></h2><a class="btn-all" href="#">ดูทั้งหมด <svg class="icon"><use href="#i-chev-r"/></svg></a></div>
+      <div class="cats"><a href="#" class="on">ทั้งหมด</a><a href="#">เกี่ยวกับอาเซียน</a><a href="#">เสาการเมืองและความมั่นคง</a><a href="#">เสาเศรษฐกิจ</a><a href="#">เสาสังคมและวัฒนธรรม</a><a href="#">อาเซียนกับภาคีภายนอก</a><a href="#">ก้าวไปกับอาเซียน</a></div>
+      <div class="art-grid">
+        <a class="art" href="#"><div class="ic"><svg class="icon"><use href="#i-news"/></svg></div><div class="cat">เสาเศรษฐกิจ</div><h3>อนาคตเศรษฐกิจที่สดใสของอาเซียน</h3><p>อาเซียนกำลังก้าวสู่การเป็นเศรษฐกิจขนาดใหญ่อันดับ 4 ของโลก ด้วยประชากรกว่า 680 ล้านคนและตลาดที่เติบโตต่อเนื่อง</p><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 10 ส.ค. 2568</span><span>อ่าน 5 นาที</span></div></a>
+        <a class="art" href="#"><div class="ic"><svg class="icon"><use href="#i-news"/></svg></div><div class="cat">เสาเศรษฐกิจ</div><h3>สิ่งดีดีที่ยังไม่รู้เกี่ยวกับ RCEP</h3><p>ความตกลงหุ้นส่วนทางเศรษฐกิจระดับภูมิภาค เขตการค้าเสรีที่ใหญ่ที่สุดในโลก และประโยชน์ที่ผู้ประกอบการไทยจะได้รับ</p><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 2 ส.ค. 2568</span><span>อ่าน 4 นาที</span></div></a>
+        <a class="art" href="#"><div class="ic"><svg class="icon"><use href="#i-news"/></svg></div><div class="cat">เสาการเมืองและความมั่นคง</div><h3>ASEAN Regional Forum (ARF)</h3><p>เวทีหารือด้านการเมืองและความมั่นคงในภูมิภาคเอเชีย-แปซิฟิก ที่อาเซียนเป็นแกนกลาง</p><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 20 ก.ค. 2568</span><span>อ่าน 6 นาที</span></div></a>
+        <a class="art" href="#"><div class="ic"><svg class="icon"><use href="#i-news"/></svg></div><div class="cat">เสาสังคมและวัฒนธรรม</div><h3>ศูนย์อาเซียนเพื่อผู้สูงวัยอย่างมีศักยภาพและนวัตกรรม</h3><p>ACAI ศูนย์ความร่วมมือระดับภูมิภาคเพื่อรองรับสังคมสูงวัยของอาเซียน ตั้งอยู่ในประเทศไทย</p><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 8 ก.ค. 2568</span><span>อ่าน 5 นาที</span></div></a>
+      </div>
+    </div>
+    <aside>
+      <div class="sec-head"><h2 class="sec-title">เกร็ดน่ารู้</h2></div>
+      <div class="side">
+        <div class="hd"><svg class="icon"><use href="#i-bulb"/></svg> เรียนรู้ศัพท์อาเซียน</div>
+        <ul>
+          <li><a href="#"><span class="k">RT</span><div><div class="t">เรียนรู้ศัพท์อาเซียน – Retreat</div><div class="s">การประชุมอย่างไม่เป็นทางการของรัฐมนตรีต่างประเทศอาเซียน</div></div></a></li>
+          <li><a href="#"><span class="k">AMM</span><div><div class="t">เรียนรู้ศัพท์อาเซียน – AMM-PMC</div><div class="s">การประชุมรัฐมนตรีต่างประเทศอาเซียนกับประเทศคู่เจรจา</div></div></a></li>
+          <li><a href="#"><span class="k">JCM</span><div><div class="t">เรียนรู้ศัพท์อาเซียน – JCM</div><div class="s">Joint Cooperation Meeting การประชุมความร่วมมือร่วม</div></div></a></li>
+          <li><a href="#"><span class="k">+66</span><div><div class="t">รหัสโทรศัพท์ประเทศอาเซียน</div><div class="s">รหัสโทรศัพท์ระหว่างประเทศของสมาชิกทั้ง 10 ประเทศ</div></div></a></li>
+          <li><a href="#"><span class="k">SEA</span><div><div class="t">ความร่วมมืออาเซียนด้านการจัดการขยะทะเล</div><div class="s">กรอบปฏิบัติการอาเซียนว่าด้วยขยะทะเล</div></div></a></li>
+        </ul>
+        <div class="ft"><a href="#">ดูเกร็ดน่ารู้ทั้งหมด <svg class="icon"><use href="#i-chev-r"/></svg></a></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="section">
+  <div class="container about">
+    <div class="pics">
+      <img src="assets/news-70.jpg" alt="" loading="lazy">
+      <img src="assets/news-68.jpg" alt="" loading="lazy">
+      <div class="badge"><b>ตั้งแต่ปี 2557</b><span>ดำเนินโครงการต่อเนื่องกว่า 11 ปี</span></div>
+    </div>
+    <div>
+      <div class="sec-head" style="margin-bottom:18px"><h2 class="sec-title">เกี่ยวกับโครงการ</h2></div>
+      <h2>ห้องสมุดอาเซียน <em>ศูนย์การเรียนรู้</em><br>ของเยาวชนและชุมชนทั่วไทย</h2>
+      <p>กระทรวงการต่างประเทศ โดยกรมอาเซียน ริเริ่มโครงการ “1 จังหวัด 1 โรงเรียน 1 ห้องสมุดอาเซียน” ตั้งแต่ปี 2557 เพื่อเตรียมความพร้อมให้เยาวชน ประชาชน และชุมชนท้องถิ่นเข้าสู่ประชาคมอาเซียน โดยเน้นโรงเรียนในพื้นที่ห่างไกลและพื้นที่ชายแดนติดกับประเทศสมาชิกอาเซียน</p>
+      <ul class="checks">
+        <li><svg class="icon"><use href="#i-check"/></svg> บอร์ดนิทรรศการถาวร ชั้นหนังสือ โต๊ะและเก้าอี้</li>
+        <li><svg class="icon"><use href="#i-check"/></svg> คอมพิวเตอร์ ซอฟต์แวร์สื่อการสอน และจอทัชสกรีนเชื่อมต่อ DLTV</li>
+        <li><svg class="icon"><use href="#i-check"/></svg> หนังสือและสื่อความรู้เกี่ยวกับอาเซียนและภาษาอังกฤษ</li>
+      </ul>
+      <a class="btn btn-navy" href="#">อ่านที่มาของโครงการ <svg class="icon"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA BAND ===== -->
+<section class="band">
+  <div class="container">
+    <h2>ค้นหาห้องสมุดอาเซียนใกล้คุณ</h2>
+    <p>ห้องสมุดอาเซียนเปิดให้เยาวชน ครู ชุมชน และหน่วยงานที่สนใจเข้าใช้บริการและศึกษาดูงานได้ทั้ง 76 แห่งทั่วประเทศ</p>
+    <form onsubmit="return false"><input type="search" placeholder="พิมพ์ชื่อจังหวัดหรือโรงเรียน เช่น นราธิวาส" aria-label="ค้นหาห้องสมุด"><button class="btn btn-navy" type="submit"><svg class="icon"><use href="#i-search"/></svg> ค้นหา</button></form>
+  </div>
+</section>
+
+<!-- ===== RELATED SITES ===== -->
+<section class="section">
+  <div class="container">
+    <div class="sec-head"><h2 class="sec-title">เว็บไซต์ที่เกี่ยวข้อง</h2></div>
+    <div class="links">
+      <a href="#"><svg class="icon"><use href="#i-arrow"/></svg> กรมอาเซียน กระทรวงการต่างประเทศ <svg class="icon ext"><use href="#i-ext"/></svg></a>
+      <a href="#"><svg class="icon"><use href="#i-arrow"/></svg> กระทรวงการต่างประเทศ (mfa.go.th) <svg class="icon ext"><use href="#i-ext"/></svg></a>
+      <a href="#"><svg class="icon"><use href="#i-arrow"/></svg> ASEAN Secretariat (asean.org) <svg class="icon ext"><use href="#i-ext"/></svg></a>
+      <a href="#"><svg class="icon"><use href="#i-arrow"/></svg> สมาคมอาเซียน–ประเทศไทย <svg class="icon ext"><use href="#i-ext"/></svg></a>
+      <a href="#"><svg class="icon"><use href="#i-arrow"/></svg> มูลนิธิการศึกษาทางไกลผ่านดาวเทียม (DLTV) <svg class="icon ext"><use href="#i-ext"/></svg></a>
+      <a href="#"><svg class="icon"><use href="#i-arrow"/></svg> สำนักงานคณะกรรมการการศึกษาขั้นพื้นฐาน (สพฐ.) <svg class="icon ext"><use href="#i-ext"/></svg></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container grid">
+    <div>
+      <a class="brand" href="#"><img src="assets/logo-asean-library.png" alt=""><div><div class="th">โครงการห้องสมุดอาเซียน</div><div class="en">กรมอาเซียน กระทรวงการต่างประเทศ</div></div></a>
+      <p>เตรียมความพร้อมให้เยาวชนและชุมชนไทยเข้าสู่ประชาคมอาเซียน ผ่านศูนย์การเรียนรู้ในโรงเรียนทั่วประเทศ ภายใต้แนวคิด “ประชาคมที่มีประชาชนเป็นศูนย์กลาง ไม่ทิ้งใครไว้ข้างหลัง และมองไปสู่อนาคต”</p>
+      <div class="social">
+        <a href="#" aria-label="Facebook ASEAN Thailand"><svg class="icon"><use href="#i-fb"/></svg></a>
+        <a href="#" aria-label="X ASEAN_THAILAND"><svg class="icon"><use href="#i-x"/></svg></a>
+        <a href="#" aria-label="Instagram aseanthailand"><svg class="icon"><use href="#i-ig"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg class="icon"><use href="#i-yt"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <h4>แผนผังเว็บไซต์</h4>
+      <ul><li><a href="#">หน้าแรก</a></li><li><a href="#">เกี่ยวกับโครงการ</a></li><li><a href="#">กระดานข่าว</a></li><li><a href="#">บทความ</a></li><li><a href="#">เกร็ดน่ารู้</a></li><li><a href="#">คลังภาพ</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
+    </div>
+    <div>
+      <h4>บทความ</h4>
+      <ul><li><a href="#">เกี่ยวกับอาเซียน</a></li><li><a href="#">เสาการเมืองและความมั่นคง</a></li><li><a href="#">เสาเศรษฐกิจ</a></li><li><a href="#">เสาสังคมและวัฒนธรรม</a></li><li><a href="#">อาเซียนกับภาคีภายนอก</a></li><li><a href="#">ก้าวไปกับอาเซียน</a></li></ul>
+    </div>
+    <div>
+      <h4>ติดต่อเรา</h4>
+      <ul class="contact">
+        <li><svg class="icon"><use href="#i-pin"/></svg><span>กรมอาเซียน กระทรวงการต่างประเทศ<br>443 ถนนศรีอยุธยา แขวงทุ่งพญาไท เขตราชเทวี กรุงเทพมหานคร 10400</span></li>
+        <li><svg class="icon"><use href="#i-phone"/></svg><span>02 203 5000</span></li>
+        <li><svg class="icon"><use href="#i-globe"/></svg><span>asean.mfa.go.th</span></li>
+        <li><svg class="icon"><use href="#i-clock"/></svg><span>จันทร์–ศุกร์ 08.30–16.30 น. (ยกเว้นวันหยุดราชการ)</span></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<div class="copy">© สงวนลิขสิทธิ์ 2556–2569 <b>กรมอาเซียน กระทรวงการต่างประเทศ</b> · Department of ASEAN Affairs, Ministry of Foreign Affairs of the Kingdom of Thailand</div>
+
+<script>
+// Hero slider
+(function(){
+  const slides=[...document.querySelectorAll('.slide')],dots=[...document.querySelectorAll('.dots button')];
+  let i=0,t;
+  const go=n=>{slides[i].classList.remove('on');dots[i].classList.remove('on');i=(n+slides.length)%slides.length;slides[i].classList.add('on');dots[i].classList.add('on');};
+  const auto=()=>{clearInterval(t);t=setInterval(()=>go(i+1),6000)};
+  document.querySelector('.arrow.next').onclick=()=>{go(i+1);auto()};
+  document.querySelector('.arrow.prev').onclick=()=>{go(i-1);auto()};
+  dots.forEach((d,n)=>d.onclick=()=>{go(n);auto()});
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) auto();
+})();
+</script>
+</body>
+</html>
