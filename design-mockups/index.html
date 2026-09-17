@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ASEAN Library — แบบดีไซน์หน้าแรก 3 แนวทาง</title>
+<title>ASEAN Library — แบบดีไซน์หน้าแรก 6 แนวทาง</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -23,6 +23,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .tabs button{padding:8px 16px;border-radius:999px;font-size:14px;font-weight:500;color:var(--text-2);display:flex;align-items:center;gap:8px;transition:all .15s;white-space:nowrap}
 .tabs button .n{width:22px;height:22px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:12px;font-weight:600}
 .tabs button.on{background:var(--navy);color:#fff;box-shadow:0 4px 12px rgba(0,70,138,.25)}
+.tabs .sep{width:1px;background:var(--line);margin:6px 4px}
 .tabs button.on .n{background:var(--gold);color:var(--navy-900)}
 .spacer{flex:1}
 .devices{display:flex;gap:2px;background:var(--bg);padding:4px;border-radius:10px}
@@ -68,11 +69,15 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 </svg>
 
 <header class="top">
-  <div class="brand"><img src="assets/logo-asean-library.png" alt=""><div><b>โครงการห้องสมุดอาเซียน</b><small>แบบดีไซน์หน้าแรก 3 แนวทาง · อิง CI mfa.go.th</small></div></div>
+  <div class="brand"><img src="assets/logo-asean-library.png" alt=""><div><b>โครงการห้องสมุดอาเซียน</b><small>แบบดีไซน์หน้าแรก 6 แนวทาง · อิง CI mfa.go.th</small></div></div>
   <div class="tabs" role="tablist">
     <button class="on" data-i="0"><span class="n">1</span> ทางการ</button>
     <button data-i="1"><span class="n">2</span> Modern Editorial</button>
     <button data-i="2"><span class="n">3</span> Learning Space</button>
+    <span class="sep"></span>
+    <button data-i="3"><span class="n">4</span> Immersive Dark</button>
+    <button data-i="4"><span class="n">5</span> Minimal Swiss</button>
+    <button data-i="5"><span class="n">6</span> Bento App</button>
   </div>
   <div class="spacer"></div>
   <div class="devices">
@@ -101,7 +106,19 @@ const designs=[
  {file:'design-3-learning.html',k:'แบบที่ 3',t:'Learning Space',en:'Warm & youthful — เป็นมิตรกับนักเรียน ครู และชุมชน',
   p:'ออกแบบจากกลุ่มเป้าหมายหลักของโครงการ คือเยาวชนและครู ใช้มุมโค้ง สีเขียว/ทองจากพาเลต MFA เป็นสีเสริม รูปภาพจัดเป็นคอลลาจ และมีเส้นทาง “คุณคือใคร” ให้ผู้ใช้แต่ละกลุ่มเข้าถึงสิ่งที่ต้องการทันที',
   f:['Hero พื้นน้ำเงินไล่เฉด + คอลลาจรูป 3 ใบ + ป้าย “76 แห่ง”','การ์ดเส้นทางผู้ใช้ 4 กลุ่ม: นักเรียน / ครู / ชุมชน / หน่วยงาน','บทความจัดตาม 3 เสาหลักอาเซียน แยกสี','การ์ด “คำศัพท์วันนี้” + รู้จัก 10 ประเทศสมาชิก','แกลเลอรีภาพแบบโมเสก + CTA เชิญร่วมโครงการ'],
-  sw:['#00468A','#0B5FB0','#10A58A','#ECA90E','#FEF5E0','#F5F6F8'],fit:'เหมาะกับ: <b>นักเรียน ครู และชุมชน</b> — เน้นความอบอุ่นและการมีส่วนร่วม'}
+  sw:['#00468A','#0B5FB0','#10A58A','#ECA90E','#FEF5E0','#F5F6F8'],fit:'เหมาะกับ: <b>นักเรียน ครู และชุมชน</b> — เน้นความอบอุ่นและการมีส่วนร่วม'},
+ {file:'design-4-immersive.html',k:'แบบที่ 4 · โมเดิร์น',t:'Immersive Dark',en:'Cinematic dark navy + glass cards — ดูพรีเมียม',
+  p:'โทนน้ำเงินเข้มทั้งหน้าแบบ cinematic ใช้รูปเต็มจอเป็นฉากหลัง การ์ดกระจก (glassmorphism) และตัวอักษรบาง-หนาตัดกัน ให้ความรู้สึกพรีเมียมและทันสมัยที่สุดในชุด สลับ section สว่างเพื่อพักสายตา',
+  f:['Hero เต็มจอ รูปพื้นหลังเคลื่อนช้า ๆ (Ken Burns) + สถิติในการ์ดกระจก','Header โปร่งใส กลายเป็นกระจกเมื่อเลื่อน','ข่าวเป็นการ์ดสูงเลื่อนแนวนอน','บทความแบบตารางมืด hover ปุ่มลูกศรหมุน','เครือข่ายเป็นแถบ progress bar รายภูมิภาค + CTA กระจก'],
+  sw:['#010F24','#001B3A','#00468A','#ECA90E','#10A58A','#F5F6F8'],fit:'เหมาะกับ: <b>ภาพลักษณ์พรีเมียม/นำเสนอผู้บริหาร</b> — ดูเป็นเว็บระดับสากล'},
+ {file:'design-5-swiss.html',k:'แบบที่ 5 · โมเดิร์น',t:'Minimal Swiss',en:'Typographic grid — ขาวสะอาด เส้นบาง ตัวอักษรใหญ่',
+  p:'มินิมอลแบบกริดสวิส ไม่มีการ์ด ไม่มีเงา ใช้เส้นบางและตัวอักษรขนาดใหญ่สร้างลำดับชั้น เนื้อหาเป็นแถวตาราง อ่านง่ายและโหลดเร็ว ให้ความรู้สึกเหมือนนิตยสาร/สถาบันระดับสากล',
+  f:['Hero หัวข้อยักษ์ + เลข 76 แบบ outline ด้านหลัง + รูปเต็มความกว้าง','แถบ marquee ชื่อโครงการ','ทุก section มีเลขกำกับ 01–05 แบบ editorial','ข่าว/บทความเป็นแถวตาราง วันที่ใหญ่ hover ทั้งแถว','ศัพท์อาเซียนเป็นตารางกริด hover เปลี่ยนเป็นน้ำเงิน'],
+  sw:['#0E1116','#00468A','#ECA90E','#F7F8FA','#DDE1E7','#FFFFFF'],fit:'เหมาะกับ: <b>ผู้ที่ชอบความเรียบ</b> เน้นเนื้อหา ปรับเป็น Next.js ได้เร็วที่สุด'},
+ {file:'design-6-bento.html',k:'แบบที่ 6 · โมเดิร์น',t:'Bento App',en:'Dashboard-like tiles — ทุกอย่างอยู่ในหน้าเดียว',
+  p:'จัดทุกเนื้อหาเป็นไทล์แบบ bento grid เหมือนหน้าแอป มีช่องค้นหาแบบ command palette ด้านบน ผู้ใช้เห็นข่าว สถิติ เครือข่าย บทความ คำศัพท์ และแกลเลอรีได้ในหน้าจอเดียว เหมาะกับการดึงข้อมูลจากฐานข้อมูลมาแสดงเป็น widget',
+  f:['ช่องค้นหาใหญ่ด้านบน + ชิปคำค้นยอดนิยม','Hero เป็นไทล์รูป + ไทล์สถิติ 4 สี','ไทล์เส้นทางผู้ใช้ 4 กลุ่ม แทรกในกริด','ไทล์เครือข่ายรายภูมิภาค / คำศัพท์วันนี้ / แกลเลอรี / 10 ประเทศ','เมนูลอยแบบ pill ทุกไทล์มุมโค้ง 22px'],
+  sw:['#00468A','#ECA90E','#10A58A','#EAF2FB','#ECEFF3','#FFFFFF'],fit:'เหมาะกับ: <b>เว็บที่จะมีข้อมูลเยอะ</b> — แต่ละไทล์ map ตรงกับตารางใน DB'}
 ];
 const side=document.getElementById('side'),view=document.getElementById('view'),frame=document.getElementById('frame'),openLink=document.getElementById('openLink');
 function show(i){

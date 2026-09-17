@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>โครงการห้องสมุดอาเซียน — แบบที่ 4 Immersive Dark</title>
+<meta name="description" content="แบบดีไซน์หน้าแรกเว็บไซต์โครงการห้องสมุดอาเซียน — แนว immersive โทนน้ำเงินเข้ม glass cards อิง CI mfa.go.th">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#00468A; --navy-700:#0A3070; --navy-900:#001B3A; --navy-950:#010F24;
+  --blue:#0B6ACB; --green:#10A58A; --gold:#ECA90E; --gold-300:#F6C64E;
+  --white:#fff; --text:#EAF0F8; --text-2:rgba(234,240,248,.72); --text-3:rgba(234,240,248,.5);
+  --glass:rgba(255,255,255,.06); --glass-line:rgba(255,255,255,.12);
+  --light-bg:#F5F6F8; --light-text:#1B1D22; --light-2:#4A5260; --line:#E4E7EC;
+  --r:20px; --r-lg:28px;
+  --font:'Kanit',system-ui,sans-serif; --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-size:16px;line-height:1.65;color:var(--text);background:var(--navy-950);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.container{max-width:1280px;margin:0 auto;padding:0 32px}
+.icon{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.skip{position:absolute;left:-999px;top:8px;background:var(--gold);color:var(--navy-900);padding:8px 14px;border-radius:8px;z-index:999}
+.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* ===== HEADER (transparent → glass on scroll) ===== */
+.header{position:fixed;top:0;left:0;right:0;z-index:50;transition:all .3s var(--ease)}
+.header .container{display:flex;align-items:center;gap:24px;height:84px}
+.header.scrolled{background:rgba(1,15,36,.72);backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid var(--glass-line)}
+.header.scrolled .container{height:68px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:48px;height:48px;border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.15)}
+.brand b{display:block;font-size:17px;font-weight:600;line-height:1.1}
+.brand small{display:block;font-size:11px;color:var(--text-3);letter-spacing:.4px;text-transform:uppercase}
+.menu{display:flex;gap:4px;margin-left:auto}
+.menu a{padding:8px 14px;border-radius:999px;font-size:14px;font-weight:400;color:var(--text-2);transition:all .15s;white-space:nowrap}
+.menu a:hover,.menu a.on{color:#fff;background:var(--glass)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;font-weight:500;font-size:15px;transition:all .25s var(--ease);white-space:nowrap}
+.btn-gold{background:var(--gold);color:var(--navy-900);box-shadow:0 10px 30px rgba(236,169,14,.3)}
+.btn-gold:hover{background:var(--gold-300);transform:translateY(-2px)}
+.btn-glass{background:var(--glass);border:1px solid var(--glass-line);color:#fff;backdrop-filter:blur(8px)}
+.btn-glass:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{background:var(--blue);transform:translateY(-2px)}
+.burger{display:none}
+
+/* ===== HERO ===== */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;padding:140px 0 72px}
+.hero .bg{position:absolute;inset:0}
+.hero .bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;transform:scale(1.04);animation:kb 18s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.12) translate(-1%,-1%)}}
+.hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(1,15,36,.55) 0%,rgba(1,15,36,.35) 40%,rgba(1,15,36,.92) 80%,var(--navy-950) 100%)}
+.hero .orb{position:absolute;width:640px;height:640px;border-radius:50%;filter:blur(90px);opacity:.45;pointer-events:none}
+.hero .orb.a{background:var(--navy);right:-160px;top:-120px}
+.hero .orb.b{background:var(--gold);left:-240px;bottom:-200px;opacity:.18}
+.hero .container{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:end}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--gold)}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
+.hero h1{font-size:76px;font-weight:600;line-height:1.05;letter-spacing:-1px;margin:22px 0 20px}
+.hero h1 .thin{font-weight:200}
+.hero h1 .gold{color:var(--gold)}
+.hero p{font-size:18px;font-weight:300;color:var(--text-2);max-width:560px}
+.hero .cta{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}
+.hero-side{display:grid;gap:12px}
+.glass{background:var(--glass);border:1px solid var(--glass-line);backdrop-filter:blur(14px);border-radius:var(--r)}
+.hs{padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:all .25s var(--ease)}
+.hs:hover{background:rgba(255,255,255,.1);transform:translateX(-4px)}
+.hs b{font-size:34px;font-weight:600;line-height:1;display:block}
+.hs span{font-size:13px;color:var(--text-3)}
+.hs .icon{font-size:26px;color:var(--gold)}
+.hero .scroll{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);display:flex;flex-direction:column;align-items:center;gap:8px}
+.hero .scroll i{width:1px;height:36px;background:linear-gradient(180deg,var(--gold),transparent);animation:drop 1.8s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ===== SECTIONS ===== */
+.section{padding:96px 0;position:relative}
+.section.light{background:var(--light-bg);color:var(--light-text)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:44px}
+.sec-head h2{font-size:44px;font-weight:600;letter-spacing:-.5px;line-height:1.1}
+.sec-head h2 .thin{font-weight:200}
+.sec-head p{color:var(--text-2);font-weight:300;margin-top:8px;max-width:560px}
+.light .sec-head p{color:var(--light-2)}
+.more{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--gold);white-space:nowrap}
+.more .icon{transition:transform .2s}
+.more:hover .icon{transform:translateX(4px)}
+.light .more{color:var(--navy)}
+
+/* ---- News: horizontal glass cards ---- */
+.rail{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 32px 24px;margin:0 -32px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.ncard{scroll-snap-align:start;flex:0 0 380px;border-radius:var(--r-lg);overflow:hidden;position:relative;height:460px;background:var(--navy-900);display:block;transition:transform .35s var(--ease)}
+.ncard:hover{transform:translateY(-8px)}
+.ncard img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.ncard:hover img{transform:scale(1.06)}
+.ncard .cap{position:absolute;inset:auto 0 0 0;padding:120px 24px 24px;background:linear-gradient(180deg,transparent,rgba(1,15,36,.95))}
+.ncard .no{position:absolute;top:18px;left:18px;font-size:12px;font-weight:600;background:rgba(1,15,36,.55);border:1px solid var(--glass-line);backdrop-filter:blur(8px);padding:6px 12px;border-radius:999px}
+.ncard .no b{color:var(--gold)}
+.ncard h3{font-size:20px;font-weight:500;line-height:1.35;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ncard .meta{margin-top:10px;font-size:13px;color:var(--text-3);display:flex;gap:14px}
+.ncard .meta span{display:inline-flex;gap:5px;align-items:center}
+.ncard.first{flex-basis:560px}
+.ncard.first h3{font-size:26px}
+
+/* ---- Features (light) ---- */
+.feat{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.fcard{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 26px;position:relative;overflow:hidden;transition:all .3s var(--ease);min-height:280px;display:flex;flex-direction:column}
+.fcard:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(0,27,58,.12);border-color:transparent}
+.fcard .n{font-size:72px;font-weight:200;line-height:1;color:var(--navy);opacity:.18;position:absolute;right:18px;top:12px;letter-spacing:-2px}
+.fcard .ic{width:52px;height:52px;border-radius:16px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:24px;margin-bottom:auto}
+.fcard h3{font-size:19px;font-weight:600;color:var(--navy-900);margin:24px 0 6px}
+.fcard p{font-size:14px;color:var(--light-2);font-weight:300}
+.fcard:nth-child(2) .ic{background:var(--blue)}.fcard:nth-child(3) .ic{background:var(--green)}.fcard:nth-child(4) .ic{background:var(--gold);color:var(--navy-900)}
+.light-strip{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+.strip-pic{border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/8;position:relative}
+.strip-pic img{width:100%;height:100%;object-fit:cover}
+.strip-pic .cap{position:absolute;left:20px;bottom:20px;background:rgba(255,255,255,.92);color:var(--navy-900);font-size:13px;font-weight:500;padding:8px 14px;border-radius:999px}
+
+/* ---- Articles (dark list) ---- */
+.arts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--glass-line);border:1px solid var(--glass-line);border-radius:var(--r-lg);overflow:hidden}
+.acard{background:var(--navy-950);padding:34px 30px;display:flex;flex-direction:column;min-height:300px;transition:background .25s;position:relative}
+.acard:hover{background:var(--navy-900)}
+.acard .no{font-size:40px;font-weight:200;color:var(--text-3);line-height:1}
+.acard .cat{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-top:auto}
+.acard h3{font-size:22px;font-weight:500;line-height:1.35;margin:8px 0 10px}
+.acard p{font-size:14px;color:var(--text-2);font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.acard .arr{position:absolute;right:26px;top:30px;width:40px;height:40px;border-radius:50%;border:1px solid var(--glass-line);display:grid;place-items:center;font-size:16px;color:var(--text-2);transition:all .25s}
+.acard:hover .arr{background:var(--gold);border-color:var(--gold);color:var(--navy-900);transform:rotate(-45deg)}
+
+/* ---- Glossary glass flashcards ---- */
+.gloss{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px}
+.gcard{padding:30px;min-height:240px;display:flex;flex-direction:column;justify-content:space-between;transition:all .3s var(--ease);position:relative;overflow:hidden}
+.gcard:hover{background:rgba(255,255,255,.1);transform:translateY(-6px)}
+.gcard .lbl{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);display:inline-flex;gap:8px;align-items:center}
+.gcard .term{font-size:44px;font-weight:600;letter-spacing:-1px;line-height:1;margin-top:16px}
+.gcard .full{font-size:13px;color:var(--text-3);margin-top:6px}
+.gcard .def{font-size:15px;color:var(--text-2);font-weight:300;margin-top:16px}
+.gcard.big .term{font-size:64px}
+.gcard.big::after{content:"";position:absolute;right:-80px;top:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(236,169,14,.35),transparent 70%)}
+
+/* ---- Network: region bars ---- */
+.net{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.net h2{font-size:44px;font-weight:600;line-height:1.1;letter-spacing:-.5px;margin:14px 0 16px}
+.net p{color:var(--text-2);font-weight:300}
+.search{display:flex;margin-top:26px;padding:6px;gap:6px}
+.search input{flex:1;background:none;border:0;padding:10px 18px;font:inherit;color:#fff;outline:none;min-width:0}
+.search input::placeholder{color:var(--text-3)}
+.regions{display:grid;gap:12px}
+.reg{padding:20px 24px;display:grid;grid-template-columns:1fr auto;gap:8px 20px;align-items:center;transition:all .25s var(--ease);cursor:pointer}
+.reg:hover{background:rgba(255,255,255,.1);transform:translateX(6px)}
+.reg b{font-size:17px;font-weight:500}
+.reg small{font-size:12px;color:var(--text-3);display:block}
+.reg .n{font-size:32px;font-weight:600;color:var(--gold);line-height:1}
+.reg .bar{grid-column:1/-1;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
+.reg .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--navy),var(--gold));border-radius:2px}
+
+/* ---- CTA ---- */
+.cta{padding:56px 64px;display:grid;grid-template-columns:1.3fr .7fr;gap:32px;align-items:center;position:relative;overflow:hidden;border-radius:var(--r-lg)}
+.cta::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(0,70,138,.5),transparent 60%)}
+.cta h2{font-size:36px;font-weight:600;line-height:1.15;position:relative}
+.cta p{color:var(--text-2);font-weight:300;margin-top:10px;position:relative;max-width:560px}
+.cta .acts{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;position:relative}
+
+/* ===== FOOTER ===== */
+.footer{border-top:1px solid var(--glass-line);padding:64px 0 28px;font-size:14px;color:var(--text-2)}
+.footer .grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:40px;padding-bottom:44px}
+.footer h4{color:#fff;font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+.footer li{margin-bottom:9px}.footer li a:hover{color:var(--gold)}
+.footer p{font-weight:300;margin-top:16px;max-width:380px}
+.footer .contact li{display:flex;gap:10px}.footer .contact .icon{color:var(--gold);margin-top:4px}
+.footer .social{display:flex;gap:8px;margin-top:20px}
+.footer .social a{width:40px;height:40px;border-radius:50%;border:1px solid var(--glass-line);display:grid;place-items:center;font-size:17px;transition:all .2s}
+.footer .social a:hover{background:var(--gold);color:var(--navy-900);border-color:var(--gold)}
+.footer .bottom{border-top:1px solid var(--glass-line);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--text-3)}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:1100px){
+  .hero h1{font-size:56px}
+  .hero .container{grid-template-columns:1fr}
+  .hero-side{grid-template-columns:repeat(3,1fr)}
+  .feat{grid-template-columns:1fr 1fr}
+  .arts{grid-template-columns:1fr}
+  .gloss{grid-template-columns:1fr 1fr}
+  .net{grid-template-columns:1fr}
+  .footer .grid{grid-template-columns:1fr 1fr}
+  .cta{grid-template-columns:1fr;padding:40px}
+  .cta .acts{justify-content:flex-start}
+}
+@media (max-width:860px){
+  .container{padding:0 20px}
+  .header .container{height:68px}
+  .brand small{display:none}
+  .menu{display:none;position:absolute;top:100%;left:16px;right:16px;flex-direction:column;background:rgba(1,15,36,.96);border:1px solid var(--glass-line);border-radius:var(--r);padding:10px}
+  .header.open .menu{display:flex}
+  .header .btn-glass{display:none}
+  .burger{display:grid;margin-left:auto;width:44px;height:44px;place-items:center;font-size:22px;border-radius:50%;background:var(--glass);border:1px solid var(--glass-line)}
+  .hero{padding:120px 0 80px;min-height:auto}
+  .hero h1{font-size:40px}
+  .hero p{font-size:16px}
+  .hero-side{grid-template-columns:1fr;gap:8px}
+  .hs{padding:12px 18px}
+  .hs > div{display:flex;align-items:baseline;gap:10px}
+  .hs b{font-size:24px}
+  .hs .icon{font-size:20px}
+  .hero .scroll{display:none}
+  .section{padding:64px 0}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:10px;margin-bottom:28px}
+  .sec-head h2,.net h2{font-size:32px}
+  .rail{padding:4px 20px 20px;margin:0 -20px}
+  .ncard,.ncard.first{flex-basis:300px;height:400px}
+  .feat{grid-template-columns:1fr}
+  .light-strip{grid-template-columns:1fr}
+  .gloss{grid-template-columns:1fr}
+  .footer .grid{grid-template-columns:1fr;gap:28px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">ข้ามไปยังเนื้อหาหลัก</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-library" viewBox="0 0 24 24"><path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></symbol>
+  <symbol id="i-tv" viewBox="0 0 24 24"><rect width="20" height="15" x="2" y="7" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></symbol>
+  <symbol id="i-lang" viewBox="0 0 24 24"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M4 4l16 16"/><path d="M20 4 4 20"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></symbol>
+</svg>
+
+<header class="header" id="hdr">
+  <div class="container">
+    <a class="brand" href="#"><img src="assets/logo-asean-library.png" alt="ASEAN Library"><span><b>ห้องสมุดอาเซียน</b><small>ASEAN Library · MFA Thailand</small></span></a>
+    <nav class="menu" aria-label="เมนูหลัก"><a href="#" class="on">หน้าแรก</a><a href="#">เกี่ยวกับ</a><a href="#">ข่าวสาร</a><a href="#">บทความ</a><a href="#">เกร็ดน่ารู้</a><a href="#">เครือข่าย</a><a href="#">ติดต่อ</a></nav>
+    <a class="btn btn-glass" href="#"><svg class="icon"><use href="#i-search"/></svg> ค้นหาห้องสมุด</a>
+    <button class="burger" aria-label="เมนู" onclick="document.getElementById('hdr').classList.toggle('open')"><svg class="icon"><use href="#i-menu"/></svg></button>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero">
+  <div class="bg"><img src="assets/news-76.jpg" alt=""></div>
+  <div class="orb a"></div><div class="orb b"></div>
+  <div class="container">
+    <div>
+      <span class="eyebrow">กรมอาเซียน กระทรวงการต่างประเทศ</span>
+      <h1><span class="thin">ห้องสมุดอาเซียน</span><br><span class="gold">76 แห่ง</span> ทั่วไทย<br>เพื่อเยาวชนทุกคน</h1>
+      <p>ศูนย์การเรียนรู้เกี่ยวกับอาเซียนในโรงเรียนทั่วประเทศ ภายใต้โครงการ “1 จังหวัด 1 โรงเรียน 1 ห้องสมุดอาเซียน” ดำเนินการต่อเนื่องตั้งแต่ปี 2557</p>
+      <div class="cta"><a class="btn btn-gold" href="#">ค้นหาห้องสมุดใกล้คุณ <svg class="icon"><use href="#i-arrow"/></svg></a><a class="btn btn-glass" href="#">ดูข่าวพิธีเปิดล่าสุด</a></div>
+    </div>
+    <div class="hero-side">
+      <div class="glass hs"><div><b>76</b><span>ห้องสมุดที่ส่งมอบแล้ว</span></div><svg class="icon"><use href="#i-library"/></svg></div>
+      <div class="glass hs"><div><b>11+</b><span>ปีที่ดำเนินโครงการ</span></div><svg class="icon"><use href="#i-clock"/></svg></div>
+      <div class="glass hs"><div><b>10</b><span>ประเทศสมาชิกอาเซียน</span></div><svg class="icon"><use href="#i-globe"/></svg></div>
+    </div>
+  </div>
+  <div class="scroll">เลื่อนลง <i></i></div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sec-head"><div><h2>ข่าว<span class="thin">พิธีเปิดล่าสุด</span></h2><p>ความเคลื่อนไหวของโครงการห้องสมุดอาเซียนทั่วประเทศ</p></div><a class="more" href="#">ดูข่าวทั้งหมด <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    <div class="rail">
+      <a class="ncard first" href="#"><img src="assets/news-75.jpg" alt=""><span class="no">แห่งที่ <b>75</b></span><div class="cap"><h3>พิธีเปิดห้องสมุดอาเซียนแห่งที่ 75 ณ โรงเรียนนิบงชนูปถัมภ์ จังหวัดยะลา</h3><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 16 ส.ค. 2568</span><span><svg class="icon"><use href="#i-pin"/></svg> ยะลา</span></div></div></a>
+      <a class="ncard" href="#"><img src="assets/news-74.jpg" alt="" loading="lazy"><span class="no">แห่งที่ <b>74</b></span><div class="cap"><h3>พิธีเปิดห้องสมุดอาเซียนแห่งที่ 74 ณ โรงเรียนมาบอำมฤตวิทยา จังหวัดชุมพร</h3><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 26 ธ.ค. 2567</span></div></div></a>
+      <a class="ncard" href="#"><img src="assets/news-70.jpg" alt="" loading="lazy"><span class="no">แห่งที่ <b>70</b></span><div class="cap"><h3>พิธีเปิดห้องสมุดอาเซียนแห่งที่ 70 ณ โรงเรียนอนุบาลองครักษ์ จังหวัดนครนายก</h3><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 28 มิ.ย. 2566</span></div></div></a>
+      <a class="ncard" href="#"><img src="assets/news-69.jpg" alt="" loading="lazy"><span class="no">แห่งที่ <b>69</b></span><div class="cap"><h3>พิธีเปิดห้องสมุดอาเซียนแห่งที่ 69 ณ โรงเรียนอนุบาลชัยนาท จังหวัดชัยนาท</h3><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 23 ก.พ. 2564</span></div></div></a>
+      <a class="ncard" href="#"><img src="assets/news-68.jpg" alt="" loading="lazy"><span class="no">แห่งที่ <b>68</b></span><div class="cap"><h3>พิธีเปิดห้องสมุดอาเซียนแห่งที่ 68 ณ โรงเรียนอนุบาลสิงห์บุรี จังหวัดสิงห์บุรี</h3><div class="meta"><span><svg class="icon"><use href="#i-cal"/></svg> 18 ก.พ. 2564</span></div></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="section light">
+  <div class="container">
+    <div class="sec-head"><div><h2 style="color:var(--navy-900)">ภายใน<span class="thin">ห้องสมุดอาเซียน</span></h2><p>ทุกแห่งได้รับการติดตั้งอุปกรณ์และสื่อการเรียนรู้ครบชุด</p></div><a class="more" href="#">รูปแบบห้องสมุด <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    <div class="feat">
+      <div class="fcard"><span class="n">01</span><div class="ic"><svg class="icon"><use href="#i-book"/></svg></div><h3>นิทรรศการถาวร + มุมหนังสือ</h3><p>บอร์ดข้อมูลอาเซียน ชั้นหนังสือ ชุดโต๊ะ-เก้าอี้สำหรับจัดกิจกรรม</p></div>
+      <div class="fcard"><span class="n">02</span><div class="ic"><svg class="icon"><use href="#i-monitor"/></svg></div><h3>คอมพิวเตอร์ + สื่อดิจิทัล</h3><p>ซอฟต์แวร์สื่อการสอนเกี่ยวกับอาเซียนและทักษะภาษาอังกฤษ</p></div>
+      <div class="fcard"><span class="n">03</span><div class="ic"><svg class="icon"><use href="#i-tv"/></svg></div><h3>จอทัชสกรีน DLTV</h3><p>เชื่อมต่อการศึกษาทางไกลผ่านดาวเทียม ในพระบรมราชูปถัมภ์</p></div>
+      <div class="fcard"><span class="n">04</span><div class="ic"><svg class="icon"><use href="#i-lang"/></svg></div><h3>หนังสือ 10 ประเทศ</h3><p>ประวัติศาสตร์ วัฒนธรรม และภาษาของประเทศสมาชิกอาเซียน</p></div>
+    </div>
+    <div class="light-strip">
+      <div class="strip-pic"><img src="assets/lib-interior.jpg" alt="" loading="lazy"><span class="cap">ASEAN Room · ห้องสมุดอาเซียน</span></div>
+      <div class="strip-pic"><img src="assets/kids-reading.jpg" alt="" loading="lazy"><span class="cap">มุมอ่านหนังสือสำหรับนักเรียน</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="sec-head"><div><h2>บทความ<span class="thin">ความรู้อาเซียน</span></h2><p>จัดหมวดตาม 3 เสาหลักและความร่วมมือกับภาคีภายนอก</p></div><a class="more" href="#">บทความทั้งหมด <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    <div class="arts">
+      <a class="acard" href="#"><span class="no">01</span><span class="arr"><svg class="icon"><use href="#i-arrow"/></svg></span><span class="cat">เสาเศรษฐกิจ</span><h3>อนาคตเศรษฐกิจที่สดใสของอาเซียน</h3><p>อาเซียนกำลังก้าวสู่การเป็นเศรษฐกิจขนาดใหญ่อันดับ 4 ของโลก ด้วยประชากรกว่า 680 ล้านคน</p></a>
+      <a class="acard" href="#"><span class="no">02</span><span class="arr"><svg class="icon"><use href="#i-arrow"/></svg></span><span class="cat">เสาเศรษฐกิจ</span><h3>สิ่งดีดีที่ยังไม่รู้เกี่ยวกับ RCEP</h3><p>เขตการค้าเสรีที่ใหญ่ที่สุดในโลก และประโยชน์ที่ผู้ประกอบการไทยจะได้รับ</p></a>
+      <a class="acard" href="#"><span class="no">03</span><span class="arr"><svg class="icon"><use href="#i-arrow"/></svg></span><span class="cat">เสาการเมืองและความมั่นคง</span><h3>ASEAN Regional Forum (ARF)</h3><p>เวทีหารือด้านการเมืองและความมั่นคงในภูมิภาคเอเชีย-แปซิฟิก ที่อาเซียนเป็นแกนกลาง</p></a>
+      <a class="acard" href="#"><span class="no">04</span><span class="arr"><svg class="icon"><use href="#i-arrow"/></svg></span><span class="cat">เสาสังคมและวัฒนธรรม</span><h3>ศูนย์อาเซียนเพื่อผู้สูงวัยอย่างมีศักยภาพและนวัตกรรม</h3><p>ACAI ศูนย์ความร่วมมือระดับภูมิภาคเพื่อรองรับสังคมสูงวัย ตั้งอยู่ในประเทศไทย</p></a>
+      <a class="acard" href="#"><span class="no">05</span><span class="arr"><svg class="icon"><use href="#i-arrow"/></svg></span><span class="cat">เกี่ยวกับอาเซียน</span><h3>ประชาคมเศรษฐกิจอาเซียน (AEC)</h3><p>เป้าหมาย โครงสร้าง และประโยชน์ที่ประเทศไทยได้รับจาก AEC</p></a>
+      <a class="acard" href="#"><span class="no">06</span><span class="arr"><svg class="icon"><use href="#i-arrow"/></svg></span><span class="cat">ก้าวไปกับอาเซียน</span><h3>เยาวชนไทยกับโอกาสในประชาคมอาเซียน</h3><p>ทักษะและความรู้ที่เยาวชนควรมี เพื่อใช้ประโยชน์จากประชาคมอาเซียนอย่างเต็มที่</p></a>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="sec-head"><div><h2>เกร็ด<span class="thin">น่ารู้</span></h2><p>เรียนรู้ศัพท์อาเซียน อ่านจบใน 1 นาที</p></div><a class="more" href="#">ดูทั้งหมด <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+    <div class="gloss">
+      <a class="glass gcard big" href="#"><div><span class="lbl"><svg class="icon"><use href="#i-bulb"/></svg> คำศัพท์วันนี้</span><div class="term">Retreat</div><div class="full">ASEAN Foreign Ministers' Retreat</div></div><p class="def">การประชุมอย่างไม่เป็นทางการของรัฐมนตรีต่างประเทศอาเซียน เพื่อหารือประเด็นสำคัญของภูมิภาคอย่างเปิดกว้าง</p></a>
+      <a class="glass gcard" href="#"><div><span class="lbl"><svg class="icon"><use href="#i-bulb"/></svg> ศัพท์อาเซียน</span><div class="term">AMM-PMC</div><div class="full">Post Ministerial Conference</div></div><p class="def">การประชุมรัฐมนตรีต่างประเทศอาเซียนกับประเทศคู่เจรจา</p></a>
+      <a class="glass gcard" href="#"><div><span class="lbl"><svg class="icon"><use href="#i-bulb"/></svg> ศัพท์อาเซียน</span><div class="term">JCM</div><div class="full">Joint Cooperation Meeting</div></div><p class="def">การประชุมความร่วมมือร่วมระหว่างอาเซียนกับประเทศคู่เจรจา</p></a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container net">
+    <div>
+      <span class="eyebrow">เครือข่ายห้องสมุดอาเซียน</span>
+      <h2>ครอบคลุม<br>ทุกภูมิภาคของไทย</h2>
+      <p>เลือกภูมิภาคหรือพิมพ์ชื่อจังหวัดเพื่อดูโรงเรียนที่มีห้องสมุดอาเซียน พร้อมข้อมูลติดต่อและวันเปิดให้บริการ</p>
+      <form class="glass search" onsubmit="return false"><input type="search" placeholder="พิมพ์ชื่อจังหวัดหรือโรงเรียน…" aria-label="ค้นหา"><button class="btn btn-gold" type="submit"><svg class="icon"><use href="#i-search"/></svg> ค้นหา</button></form>
+    </div>
+    <div class="regions">
+      <div class="glass reg"><div><b>ภาคกลางและตะวันออก</b><small>25 จังหวัด</small></div><span class="n">25</span><div class="bar"><i style="width:100%"></i></div></div>
+      <div class="glass reg"><div><b>ภาคตะวันออกเฉียงเหนือ</b><small>20 จังหวัด</small></div><span class="n">20</span><div class="bar"><i style="width:80%"></i></div></div>
+      <div class="glass reg"><div><b>ภาคเหนือ</b><small>17 จังหวัด</small></div><span class="n">17</span><div class="bar"><i style="width:68%"></i></div></div>
+      <div class="glass reg"><div><b>ภาคใต้</b><small>14 จังหวัด · ล่าสุด นราธิวาส</small></div><span class="n">14</span><div class="bar"><i style="width:56%"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="glass cta">
+      <div><h2>สนใจศึกษาดูงาน<br>หรือจัดกิจกรรมร่วมกับเรา?</h2><p>เปิดรับหน่วยงานภาครัฐ เอกชน สถานศึกษา และชุมชนที่สนใจเข้าเยี่ยมชม ศึกษาดูงาน หรือจัดกิจกรรมส่งเสริมความรู้เกี่ยวกับอาเซียน</p></div>
+      <div class="acts"><a class="btn btn-gold" href="#">ติดต่อกรมอาเซียน <svg class="icon"><use href="#i-arrow"/></svg></a><a class="btn btn-glass" href="#"><svg class="icon"><use href="#i-phone"/></svg> 02 203 5000</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="grid">
+      <div>
+        <a class="brand" href="#"><img src="assets/logo-asean-library.png" alt=""><span><b>ห้องสมุดอาเซียน</b><small>ASEAN Library · MFA Thailand</small></span></a>
+        <p>โครงการ “1 จังหวัด 1 โรงเรียน 1 ห้องสมุดอาเซียน เพื่อประชาชนและเยาวชนไทย” โดยกรมอาเซียน กระทรวงการต่างประเทศ</p>
+        <div class="social"><a href="#" aria-label="Facebook"><svg class="icon"><use href="#i-fb"/></svg></a><a href="#" aria-label="X"><svg class="icon"><use href="#i-x"/></svg></a><a href="#" aria-label="Instagram"><svg class="icon"><use href="#i-ig"/></svg></a><a href="#" aria-label="YouTube"><svg class="icon"><use href="#i-yt"/></svg></a></div>
+      </div>
+      <div><h4>เมนู</h4><ul><li><a href="#">หน้าแรก</a></li><li><a href="#">เกี่ยวกับโครงการ</a></li><li><a href="#">ข่าวสาร</a></li><li><a href="#">บทความ</a></li><li><a href="#">เกร็ดน่ารู้</a></li><li><a href="#">เครือข่าย</a></li></ul></div>
+      <div><h4>บทความ</h4><ul><li><a href="#">เกี่ยวกับอาเซียน</a></li><li><a href="#">เสาการเมืองและความมั่นคง</a></li><li><a href="#">เสาเศรษฐกิจ</a></li><li><a href="#">เสาสังคมและวัฒนธรรม</a></li><li><a href="#">อาเซียนกับภาคีภายนอก</a></li></ul></div>
+      <div><h4>ติดต่อ</h4><ul class="contact"><li><svg class="icon"><use href="#i-pin"/></svg><span>443 ถนนศรีอยุธยา แขวงทุ่งพญาไท เขตราชเทวี กรุงเทพฯ 10400</span></li><li><svg class="icon"><use href="#i-phone"/></svg><span>02 203 5000</span></li><li><svg class="icon"><use href="#i-globe"/></svg><span>asean.mfa.go.th</span></li></ul></div>
+    </div>
+    <div class="bottom"><span>© 2556–2569 กรมอาเซียน กระทรวงการต่างประเทศ</span><span>Department of ASEAN Affairs, Ministry of Foreign Affairs of the Kingdom of Thailand</span></div>
+  </div>
+</footer>
+<script>
+const h=document.getElementById('hdr');addEventListener('scroll',()=>h.classList.toggle('scrolled',scrollY>40),{passive:true});
+</script>
+</body>
+</html>

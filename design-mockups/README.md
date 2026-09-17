@@ -1,4 +1,4 @@
-# โครงการห้องสมุดอาเซียน — แบบดีไซน์หน้าแรก 3 แนวทาง
+# โครงการห้องสมุดอาเซียน — แบบดีไซน์หน้าแรก 6 แนวทาง
 
 Mockup HTML สำหรับให้ลูกค้าเลือกแนวทาง ก่อนพัฒนาจริงด้วย Next.js + ฐานข้อมูล
 
@@ -8,6 +8,9 @@ Mockup HTML สำหรับให้ลูกค้าเลือกแน�
   - `design-1-official.html` — **ทางการ (MFA Official)** ใกล้เคียง mfa.go.th ที่สุด
   - `design-2-editorial.html` — **Modern Editorial** สะอาด เน้นเนื้อหา Bento grid
   - `design-3-learning.html` — **Learning Space** อบอุ่น เป็นมิตรกับนักเรียน/ครู/ชุมชน
+  - `design-4-immersive.html` — **Immersive Dark** (โมเดิร์น) น้ำเงินเข้มทั้งหน้า glass cards ดูพรีเมียม
+  - `design-5-swiss.html` — **Minimal Swiss** (โมเดิร์น) ขาวสะอาด กริดเส้นบาง ตัวอักษรใหญ่
+  - `design-6-bento.html` — **Bento App** (โมเดิร์น) ทุกเนื้อหาเป็นไทล์แบบแอป + ช่องค้นหาใหญ่
 - ต้องต่ออินเทอร์เน็ตเพื่อโหลดฟอนต์ Kanit / Sarabun จาก Google Fonts
 
 ## CI ที่ใช้ (อ้างอิง www.mfa.go.th)
