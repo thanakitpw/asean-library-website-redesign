@@ -45,6 +45,8 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .side .fit{background:var(--bg);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--text-2)}
 .side .vars{display:flex;gap:4px;background:var(--bg);padding:4px;border-radius:999px;margin-bottom:14px}
 .side .vars button{flex:1;padding:7px 10px;border-radius:999px;font-size:13px;font-weight:500;color:var(--text-2)}
+.side .vars.pages{flex-wrap:wrap;border-radius:18px}
+.side .vars.pages button{flex:1 0 30%}
 .side .vars button.on{background:#fff;color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .side .fit b{color:var(--navy);font-weight:600}
 .stage{position:relative;overflow:auto;padding:24px;display:flex;justify-content:center;align-items:flex-start}
@@ -72,9 +74,11 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 </svg>
 
 <header class="top">
-  <div class="brand"><img src="assets/logo-asean-library.png" alt=""><div><b>โครงการห้องสมุดอาเซียน</b><small>แบบดีไซน์หน้าแรก 6 แนวทาง · อิง CI mfa.go.th</small></div></div>
+  <div class="brand"><img src="assets/logo-asean-library.png" alt=""><div><b>โครงการห้องสมุดอาเซียน</b><small>ลูกค้าเลือกแบบที่ 3 Learning Space · ทำครบทุกหน้าแล้ว</small></div></div>
   <div class="tabs" role="tablist">
-    <button class="on" data-i="0"><span class="n">1</span> ทางการ</button>
+    <button class="on" data-i="6"><span class="n">✓</span> Learning Space ทั้งเว็บ</button>
+    <span class="sep"></span>
+    <button data-i="0"><span class="n">1</span> ทางการ</button>
     <button data-i="1"><span class="n">2</span> Modern Editorial</button>
     <button data-i="2"><span class="n">3</span> Learning Space</button>
     <span class="sep"></span>
@@ -88,12 +92,12 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
     <button data-d="tablet"><svg class="icon"><use href="#i-tab"/></svg> Tablet</button>
     <button data-d="mobile"><svg class="icon"><use href="#i-mob"/></svg> Mobile</button>
   </div>
-  <a class="open" id="openLink" href="design-1-official.html" target="_blank">เปิดเต็มจอ <svg class="icon"><use href="#i-ext"/></svg></a>
+  <a class="open" id="openLink" href="learning/index.html" target="_blank">เปิดเต็มจอ <svg class="icon"><use href="#i-ext"/></svg></a>
 </header>
 
 <div class="main">
   <aside class="side" id="side"></aside>
-  <div class="stage"><div class="frame" id="frame"><iframe id="view" src="design-1-official.html" title="ตัวอย่างดีไซน์"></iframe></div></div>
+  <div class="stage"><div class="frame" id="frame"><iframe id="view" src="learning/index.html" title="ตัวอย่างดีไซน์"></iframe></div></div>
 </div>
 
 <script>
@@ -121,23 +125,28 @@ const designs=[
  {file:'design-6-bento.html',k:'แบบที่ 6 · โมเดิร์น',t:'Bento App',en:'Dashboard-like tiles — ทุกอย่างอยู่ในหน้าเดียว',
   p:'จัดทุกเนื้อหาเป็นไทล์แบบ bento grid เหมือนหน้าแอป มีช่องค้นหาแบบ command palette ด้านบน ผู้ใช้เห็นข่าว สถิติ เครือข่าย บทความ คำศัพท์ และแกลเลอรีได้ในหน้าจอเดียว เหมาะกับการดึงข้อมูลจากฐานข้อมูลมาแสดงเป็น widget',
   f:['ช่องค้นหาใหญ่ด้านบน + ชิปคำค้นยอดนิยม','Hero เป็นไทล์รูป + ไทล์สถิติ 4 สี','ไทล์เส้นทางผู้ใช้ 4 กลุ่ม แทรกในกริด','ไทล์เครือข่ายรายภูมิภาค / คำศัพท์วันนี้ / แกลเลอรี / 10 ประเทศ','เมนูลอยแบบ pill ทุกไทล์มุมโค้ง 22px'],
-  sw:['#00468A','#ECA90E','#10A58A','#EAF2FB','#ECEFF3','#FFFFFF'],fit:'เหมาะกับ: <b>เว็บที่จะมีข้อมูลเยอะ</b> — แต่ละไทล์ map ตรงกับตารางใน DB'}
+  sw:['#00468A','#ECA90E','#10A58A','#EAF2FB','#ECEFF3','#FFFFFF'],fit:'เหมาะกับ: <b>เว็บที่จะมีข้อมูลเยอะ</b> — แต่ละไทล์ map ตรงกับตารางใน DB'},
+ {file:'learning/index.html',pages:true,variants:[{l:'หน้าแรก',file:'learning/index.html'},{l:'เกี่ยวกับ',file:'learning/about.html'},{l:'เครือข่าย 77 แห่ง',file:'learning/network.html'},{l:'ข่าวสาร',file:'learning/news.html'},{l:'อ่านข่าว',file:'learning/news-detail.html'},{l:'เรียนรู้อาเซียน',file:'learning/learn.html'},{l:'อ่านบทความ',file:'learning/article.html'},{l:'เกร็ดน่ารู้',file:'learning/tips.html'},{l:'คลังภาพ',file:'learning/gallery.html'},{l:'ติดต่อ',file:'learning/contact.html'}],
+  k:'แบบที่เลือก · ทั้งเว็บไซต์',t:'Learning Space',en:'ต่อยอดแบบที่ 3 เป็นหน้าย่อยครบ 10 หน้า',
+  p:'ใช้ token สี ฟอนต์ มุมโค้ง และคอมโพเนนต์ชุดเดียวกับหน้าแรกแบบที่ 3 ทุกหน้ามี header/footer เดียวกัน และกดลิงก์ไปมาระหว่างหน้าได้จริง เลือกหน้าที่ต้องการดูจากปุ่มด้านบน',
+  f:['เครือข่าย 77 แห่ง: ค้นหาตามจังหวัด/โรงเรียน กรองตามภาค เรียงตามปีที่เปิด (ข้อมูลจริงจากเว็บเดิม)','ข่าวสาร / บทความ / เกร็ดน่ารู้: ตัวกรองหมวด + ช่องค้นหา','หน้าอ่านข่าวและบทความ: แถบข้างข่าวล่าสุด หมวด และสื่อสำหรับครู','คลังภาพเป็นอัลบั้ม กดดูภาพใหญ่ (lightbox)','ติดต่อ: ฟอร์มเลือกหัวข้อ (ขอศึกษาดูงาน ฯลฯ) + คำถามที่พบบ่อย'],
+  sw:['#00468A','#0B5FB0','#10A58A','#ECA90E','#FEF5E0','#F5F6F8'],fit:'สถานะ: <b>รอลูกค้าตรวจหน้าย่อย</b> ก่อนเริ่มพัฒนาด้วย Next.js + ฐานข้อมูล'}
 ];
 const side=document.getElementById('side'),view=document.getElementById('view'),frame=document.getElementById('frame'),openLink=document.getElementById('openLink');
 function show(i){
   const d=designs[i];
   view.src=d.file;openLink.href=d.file;
-  const vt=d.variants?`<div class="k">เวอร์ชัน</div><div class="vars">${d.variants.map(v=>`<button class="${v.file===d.file?'on':''}" data-f="${v.file}">${v.l}</button>`).join('')}</div>`:'';
+  const vt=d.variants?`<div class="k">${d.pages?'หน้า':'เวอร์ชัน'}</div><div class="vars${d.pages?' pages':''}">${d.variants.map(v=>`<button class="${v.file===d.file?'on':''}" data-f="${v.file}">${v.l}</button>`).join('')}</div>`:'';
   side.innerHTML=`<div class="k">${d.k}</div><h2>${d.t}</h2><div class="en">${d.en}</div>${vt}<p>${d.p}</p>
   <div class="k">จุดเด่น</div><ul>${d.f.map(x=>`<li><svg class="icon"><use href="#i-check"/></svg><span>${x}</span></li>`).join('')}</ul>
   <div class="k">พาเลตสี</div><div class="sw">${d.sw.map(c=>`<span style="background:${c}" title="${c}"></span>`).join('')}</div>
   <div class="fit">${d.fit}</div>`;
-  document.querySelectorAll('.tabs button').forEach((b,n)=>b.classList.toggle('on',n===i));
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
   side.querySelectorAll('.vars button').forEach(b=>b.onclick=()=>{d.file=b.dataset.f;show(i)});
 }
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>show(+b.dataset.i));
 document.querySelectorAll('.devices button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.devices button').forEach(x=>x.classList.remove('on'));b.classList.add('on');frame.className='frame '+(b.dataset.d==='desktop'?'':b.dataset.d)});
-show(0);
+show(6);
 </script>
 </body>
 </html>
