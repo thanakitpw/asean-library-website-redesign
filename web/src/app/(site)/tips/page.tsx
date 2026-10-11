@@ -5,7 +5,7 @@ import { Icon } from '@/components/Icon';
 import { PageHero, SectionHead } from '@/components/PageHero';
 import { WordOfDay } from '@/components/WordOfDay';
 import { getGlossary } from '@/lib/content';
-import { DIAL_CODES, GLOSSARY_GROUPS } from '@/lib/data/glossary';
+import { DIAL_CODES, GLOSSARY_GROUPS } from '@/lib/taxonomy';
 
 export const metadata: Metadata = {
   title: 'เกร็ดน่ารู้',

@@ -8,7 +8,7 @@ import { SectionHead } from '@/components/PageHero';
 import { WordOfDay } from '@/components/WordOfDay';
 import { getAlbums, getArticles, getGlossary, getLibraries, getNews } from '@/lib/content';
 import { thaiDate } from '@/lib/format';
-import { MEMBER_COUNTRIES } from '@/lib/data/glossary';
+import { MEMBER_COUNTRIES } from '@/lib/taxonomy';
 import type { ArticleCategory } from '@/lib/types';
 
 const PATHS = [

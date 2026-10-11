@@ -543,6 +543,8 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .form .btn{margin-top:22px}
 .sent{display:none;background:var(--green-50);color:#0B7A66;border-radius:var(--r);padding:16px 20px;margin-top:18px;font-weight:500}
 .sent.show{display:block}
+.sent.err{background:#FDECEC;color:#B42318}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .faq{display:grid;gap:12px;max-width:880px;margin:0 auto}
 .faq details{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:0 22px}
 .faq summary{cursor:pointer;padding:18px 0;font-weight:500;font-size:16px;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}

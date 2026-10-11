@@ -1,10 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Kanit } from 'next/font/google';
-import { Suspense } from 'react';
 
 import { IconSprite } from '@/components/Icon';
-import { HeaderView, SiteHeader } from '@/components/SiteHeader';
-import { SiteFooter } from '@/components/SiteFooter';
 
 import './globals.css';
 
@@ -31,13 +28,8 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="th" className={kanit.variable}>
       <body>
-        <a className="skip" href="#main">ข้ามไปยังเนื้อหาหลัก</a>
         <IconSprite />
-        <Suspense fallback={<HeaderView pathname={null} />}>
-          <SiteHeader />
-        </Suspense>
-        <main id="main">{children}</main>
-        <SiteFooter />
+        {children}
       </body>
     </html>
   );

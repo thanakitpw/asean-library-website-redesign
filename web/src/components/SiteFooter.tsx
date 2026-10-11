@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ARTICLE_CATEGORIES } from '@/lib/data/articles';
+import { ARTICLE_CATEGORIES } from '@/lib/taxonomy';
 
 import { Icon } from './Icon';
 import { CONTACT, SOCIAL } from './nav';
