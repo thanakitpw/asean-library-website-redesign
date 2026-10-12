@@ -370,6 +370,11 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .prose figcaption{font-size:13px;color:var(--text-3);margin-top:8px;text-align:center}
 .photo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .news-photos{margin:32px 0 8px}
+.prose ul.follow{list-style:none;padding:20px 0 0;margin-top:24px;border-top:1px solid var(--line);display:grid;gap:6px}
+.prose ul.follow li{padding:0;color:var(--text-2)}
+.prose ul.follow li::before{display:none}
+.prose ul.follow a{color:var(--navy);text-decoration:none}
+.prose ul.follow a:hover{text-decoration:underline}
 .news-photos h2{display:flex;align-items:center;flex-wrap:wrap;gap:8px 10px;font-size:22px;font-weight:600;color:var(--navy-900);margin-bottom:16px}
 .news-photos h2 .icon{color:var(--gold)}
 .news-photos h2 span{font-size:14px;font-weight:400;color:var(--text-3)}

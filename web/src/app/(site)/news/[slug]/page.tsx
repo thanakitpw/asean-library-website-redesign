@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 
 import { Icon } from '@/components/Icon';
 import { Lightbox } from '@/components/Lightbox';
+import { SOCIAL } from '@/components/nav';
 import { PageHero } from '@/components/PageHero';
 import { ShareBar } from '@/components/ShareBar';
 import { getNews, getNewsNeighbors, getNewsPost } from '@/lib/content';
@@ -104,10 +105,14 @@ export default async function NewsDetailPage({ params }: PageProps<'/news/[slug]
 
 
 
-              {post.school && (
-                <blockquote>
-                  ห้องสมุดเปิดให้นักเรียน ครู และประชาชนในชุมชนเข้าใช้บริการ ติดต่อ{post.school}เพื่อสอบถามเวลาเปิดให้บริการ
-                </blockquote>
+              {isOpening && (
+                // ช่องทางติดตามท้ายข่าวพิธีเปิด ตามเว็บเดิม
+                <ul className="follow">
+                  <li>Website: <a href="https://www.mfa.go.th/asean" target="_blank" rel="noopener">www.mfa.go.th/asean</a></li>
+                  <li>Facebook: <a href={SOCIAL.facebook} target="_blank" rel="noopener">ASEAN Thailand</a></li>
+                  <li>Twitter: <a href={SOCIAL.x} target="_blank" rel="noopener">ASEAN_Thailand</a></li>
+                  <li>Instagram: <a href={SOCIAL.instagram} target="_blank" rel="noopener">aseanthailand</a></li>
+                </ul>
               )}
             </div>
 
