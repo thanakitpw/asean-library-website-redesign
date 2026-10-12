@@ -56,7 +56,10 @@ export default async function ArticlePage({ params }: PageProps<'/learn/[slug]'>
         <div className="container read">
           <article>
             {post.cover ? (
-              <div className="cover"><Image src={post.cover} alt="" fill sizes="(max-width: 1100px) 100vw, 840px" preload /></div>
+              // บทความส่วนใหญ่เป็นอินโฟกราฟิกทั้งภาพ จึงแสดงเต็มสัดส่วนเดิม ไม่ครอป
+              <a className="cover-full" href={post.cover} target="_blank" rel="noopener" aria-label="เปิดภาพขนาดเต็ม">
+                <Image src={post.cover} alt={post.title} width={1600} height={1600} sizes="(max-width: 1100px) 100vw, 840px" preload />
+              </a>
             ) : (
               <div className="cover ph"><Icon name={post.icon ?? cat.icon} /></div>
             )}
@@ -64,6 +67,15 @@ export default async function ArticlePage({ params }: PageProps<'/learn/[slug]'>
               <div className="prose" dangerouslySetInnerHTML={{ __html: post.bodyHtml }} />
             ) : (
               <div className="prose"><p>{post.excerpt}</p></div>
+            )}
+            {post.gallery && post.gallery.length > 0 && (
+              <figure className="photo-row" style={{ marginTop: 24 }}>
+                {post.gallery.map((src, i) => (
+                  <a key={src} href={src} target="_blank" rel="noopener" aria-label={`เปิดภาพที่ ${i + 1} ขนาดเต็ม`}>
+                    <Image src={src} alt="" width={400} height={300} sizes="(max-width: 860px) 50vw, 240px" />
+                  </a>
+                ))}
+              </figure>
             )}
 
             <ShareBar label="แชร์บทความนี้" />

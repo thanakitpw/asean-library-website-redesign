@@ -65,6 +65,9 @@ export type Library = {
   year: string; // พ.ศ. ที่เปิด
   school: string;
   tel: string;
+  address: string; // ที่อยู่ อีเมล Facebook ตามหน้าเครือข่ายของเว็บเดิม (หลายบรรทัด)
+  website: string;
+  newsSlug?: string; // ข่าวพิธีเปิดของห้องสมุดนี้
 };
 
 // ---------- glossary (เกร็ดน่ารู้) ----------

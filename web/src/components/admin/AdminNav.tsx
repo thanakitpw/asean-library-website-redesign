@@ -11,7 +11,8 @@ export const ADMIN_NAV: { href: string; label: string; icon: IconName }[] = [
   { href: '/admin/news', label: 'ข่าว', icon: 'board' },
   { href: '/admin/articles', label: 'บทความ', icon: 'book' },
   { href: '/admin/libraries', label: 'ห้องสมุด 77 แห่ง', icon: 'library' },
-  { href: '/admin/glossary', label: 'เกร็ดน่ารู้', icon: 'bulb' },
+  { href: '/admin/glossary', label: 'คำศัพท์เกร็ดน่ารู้', icon: 'bulb' },
+  { href: '/admin/infographics', label: 'อินโฟกราฟิก', icon: 'images' },
   { href: '/admin/albums', label: 'คลังภาพ', icon: 'images' },
   { href: '/admin/messages', label: 'ข้อความติดต่อ', icon: 'mail' },
 ];

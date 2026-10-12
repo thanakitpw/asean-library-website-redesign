@@ -62,7 +62,12 @@ export default async function NewsDetailPage({ params }: PageProps<'/news/[slug]
       <section className="page-body">
         <div className="container read">
           <article>
-            {post.cover ? (
+            {post.cover && !isOpening ? (
+              // ข่าวกิจกรรมส่วนใหญ่เป็นภาพรายงาน/สถิติทั้งภาพ จึงแสดงเต็มสัดส่วน ไม่ครอป
+              <a className="cover-full" href={post.cover} target="_blank" rel="noopener" aria-label="เปิดภาพขนาดเต็ม">
+                <Image src={post.cover} alt={post.title} width={1600} height={1200} sizes="(max-width: 1100px) 100vw, 840px" preload />
+              </a>
+            ) : post.cover ? (
               <div className="cover">
                 <Image src={post.cover} alt={post.title} fill sizes="(max-width: 1100px) 100vw, 840px" preload />
               </div>

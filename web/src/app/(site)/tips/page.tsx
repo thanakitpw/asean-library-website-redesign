@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 import { Filterable } from '@/components/Filterable';
 import { Icon } from '@/components/Icon';
 import { PageHero, SectionHead } from '@/components/PageHero';
 import { WordOfDay } from '@/components/WordOfDay';
-import { getGlossary } from '@/lib/content';
+import { getGlossary, getInfographics } from '@/lib/content';
 import { DIAL_CODES, GLOSSARY_GROUPS } from '@/lib/taxonomy';
 
 export const metadata: Metadata = {
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 const K_TONES = ['', 'green', 'gold', 'blue'];
 
 export default async function TipsPage() {
-  const terms = await getGlossary();
+  const [terms, infographics] = await Promise.all([getGlossary(), getInfographics()]);
   return (
     <>
       <PageHero
@@ -40,6 +41,32 @@ export default async function TipsPage() {
           </div>
         </div>
       </section>
+
+      {infographics.length > 0 && (
+        <section className="section" style={{ paddingTop: 24 }}>
+          <div className="container">
+            <SectionHead
+              align="left"
+              tag="อินโฟกราฟิก"
+              icon="images"
+              tone="green"
+              title="เกร็ดน่ารู้ฉบับภาพ"
+              lead="กดที่ภาพเพื่อดูขนาดเต็ม ใช้เป็นสื่อการสอนหรือแชร์ต่อได้"
+              style={{ marginBottom: 24 }}
+            />
+            <div className="infos">
+              {infographics.map((g) => (
+                <a key={g.image} className="info" href={g.image} target="_blank" rel="noopener">
+                  <span className="pic">
+                    <Image src={g.image} alt={g.title} fill sizes="(max-width: 600px) 50vw, (max-width: 1100px) 33vw, 280px" />
+                  </span>
+                  <b>{g.title}</b>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="section tint" style={{ paddingTop: 56 }}>
         <div className="container">

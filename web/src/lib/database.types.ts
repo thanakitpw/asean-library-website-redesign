@@ -168,8 +168,39 @@ export type Database = {
         }
         Relationships: []
       }
+      infographics: {
+        Row: {
+          created_at: string
+          id: number
+          image: string
+          is_published: boolean
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: never
+          image: string
+          is_published?: boolean
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: never
+          image?: string
+          is_published?: boolean
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       libraries: {
         Row: {
+          address: string
           created_at: string
           id: number
           no: number | null
@@ -179,8 +210,10 @@ export type Database = {
           school: string
           tel: string
           updated_at: string
+          website: string
         }
         Insert: {
+          address?: string
           created_at?: string
           id?: never
           no?: number | null
@@ -190,8 +223,10 @@ export type Database = {
           school?: string
           tel?: string
           updated_at?: string
+          website?: string
         }
         Update: {
+          address?: string
           created_at?: string
           id?: never
           no?: number | null
@@ -201,6 +236,7 @@ export type Database = {
           school?: string
           tel?: string
           updated_at?: string
+          website?: string
         }
         Relationships: []
       }

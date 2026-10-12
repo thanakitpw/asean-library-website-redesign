@@ -20,7 +20,10 @@ export async function saveLibrary(_prev: FormResult, form: FormData): Promise<Fo
       opened_year_be: year,
       school: text(form, 'school'),
       tel: text(form, 'tel'),
+      address: text(form, 'address').replace(/\r\n?/g, '\n'),
+      website: text(form, 'website'),
     };
+    if (row.website && !/^https?:\/\//.test(row.website)) row.website = `http://${row.website}`;
     const libId = id(form);
     const { error } = libId
       ? await db.from('libraries').update(row).eq('id', libId)

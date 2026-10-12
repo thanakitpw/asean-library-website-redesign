@@ -35,6 +35,12 @@ export function LibraryForm({ lib }: { lib: Tables<'libraries'> | null }) {
         <Field label="เบอร์โทรศัพท์" htmlFor="tel">
           <input id="tel" name="tel" type="text" defaultValue={lib?.tel} />
         </Field>
+        <Field label="ที่อยู่และช่องทางติดต่อ" htmlFor="address" hint="แสดงตามบรรทัดที่พิมพ์ เช่น ที่อยู่ / อีเมล / Facebook">
+          <textarea id="address" name="address" rows={4} defaultValue={lib?.address} />
+        </Field>
+        <Field label="เว็บไซต์โรงเรียน" htmlFor="website">
+          <input id="website" name="website" type="url" placeholder="https://" defaultValue={lib?.website} />
+        </Field>
       </Section>
     </AdminForm>
   );

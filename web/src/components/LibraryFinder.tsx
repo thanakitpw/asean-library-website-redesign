@@ -115,13 +115,25 @@ export function LibraryFinderView({ libraries, initialQuery = '' }: { libraries:
               <Icon name="school" />
               <span>{l.school || <span style={{ color: 'var(--text-3)' }}>รอข้อมูลโรงเรียนจากกรมอาเซียน</span>}</span>
             </div>
+            {l.address && (
+              <div className="addr">
+                <Icon name="pin" />
+                <span>{l.address}</span>
+              </div>
+            )}
+            {l.website && (
+              <a className="addr web" href={l.website} target="_blank" rel="noopener">
+                <Icon name="globe" />
+                <span>{l.website.replace(/^https?:\/\//, '')}</span>
+              </a>
+            )}
             <div className="row">
               {l.tel ? (
                 <a href={`tel:${l.tel.replace(/[^\d+]/g, '')}`}><Icon name="phone" /> {l.tel}</a>
               ) : (
                 <span>เปิดเมื่อ พ.ศ. {l.year}</span>
               )}
-              <Link href={`/news?c=opening`}>ข่าวพิธีเปิด <Icon name="chev-r" /></Link>
+              <Link href={l.newsSlug ? `/news/${l.newsSlug}` : '/news?c=opening'}>ข่าวพิธีเปิด <Icon name="chev-r" /></Link>
             </div>
           </article>
         ))}

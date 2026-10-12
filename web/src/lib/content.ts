@@ -140,8 +140,18 @@ export function articleCategory(slug: ArticleCategory) {
 export async function getLibraries(): Promise<Library[]> {
   'use cache';
   cacheLife('days');
-  cacheTag('libraries');
-  const rows = must(await supabase().from('libraries').select('*').order('id'), 'ห้องสมุด');
+  cacheTag('libraries', 'news');
+  const [rows, openings] = await Promise.all([
+    supabase().from('libraries').select('*').order('id').then((res) => must(res, 'ห้องสมุด')),
+    supabase()
+      .from('posts')
+      .select('slug, province')
+      .eq('type', 'news')
+      .eq('news_category', 'opening')
+      .not('province', 'is', null)
+      .then((res) => must(res, 'ข่าวพิธีเปิด')),
+  ]);
+  const newsByProvince = new Map(openings.map((o) => [o.province, o.slug]));
   return rows.map((r) => ({
     no: r.no,
     province: r.province,
@@ -149,6 +159,9 @@ export async function getLibraries(): Promise<Library[]> {
     year: String(r.opened_year_be),
     school: r.school,
     tel: r.tel,
+    address: r.address,
+    website: r.website,
+    newsSlug: newsByProvince.get(r.province),
   }));
 }
 
@@ -166,6 +179,18 @@ export async function getGlossary(): Promise<Term[]> {
     definition: r.definition,
     groups: r.groups as GlossaryGroup[],
   }));
+}
+
+// ---------- infographics (เกร็ดน่ารู้แบบภาพ) ----------
+export async function getInfographics(): Promise<{ title: string; image: string }[]> {
+  'use cache';
+  cacheLife('days');
+  cacheTag('infographics');
+  const rows = must(
+    await supabase().from('infographics').select('title, image').order('sort_order').order('id'),
+    'อินโฟกราฟิก',
+  );
+  return rows;
 }
 
 // ---------- albums ----------
