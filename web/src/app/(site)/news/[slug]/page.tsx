@@ -25,12 +25,6 @@ export async function generateMetadata({ params }: PageProps<'/news/[slug]'>): P
   };
 }
 
-const KIT = [
-  'บอร์ดนิทรรศการอาเซียนแบบถาวร พร้อมชั้นหนังสือ โต๊ะ และเก้าอี้',
-  'คอมพิวเตอร์พร้อมโปรแกรมการเรียนรู้เกี่ยวกับอาเซียนและทักษะภาษาอังกฤษ',
-  'จอโทรทัศน์ระบบสัมผัส เชื่อมต่อคอมพิวเตอร์และจานดาวเทียมสำหรับรายการการศึกษาทางไกล',
-  'หนังสือประวัติศาสตร์ สังคม วัฒนธรรม และภาษาของประเทศสมาชิกอาเซียน',
-];
 
 export default async function NewsDetailPage({ params }: PageProps<'/news/[slug]'>) {
   const { slug } = await params;
@@ -108,12 +102,6 @@ export default async function NewsDetailPage({ params }: PageProps<'/news/[slug]
                 </div>
               )}
 
-              {isOpening && (
-                <>
-                  <h2>ภายในห้องสมุดอาเซียนมีอะไรบ้าง</h2>
-                  <ul>{KIT.map((k) => <li key={k}>{k}</li>)}</ul>
-                </>
-              )}
 
 
               {post.school && (
