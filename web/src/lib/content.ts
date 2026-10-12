@@ -78,11 +78,30 @@ const posts = (type: 'news' | 'article') =>
     .order('id', { ascending: true });
 
 // ---------- news ----------
+/**
+ * พิธีเปิดเรียงตามลำดับแห่งที่จากมากไปน้อย (วันที่จัดพิธีไม่ได้เรียงตามเลขเสมอ)
+ * พิธีเปิดที่ไม่มีเลข แทรกตามวันที่ ต่อจากแห่งล่าสุดที่จัดก่อนหน้านั้น; ข่าวกิจกรรมต่อท้าย ใหม่ก่อน
+ */
+function orderNews(list: NewsPost[]): NewsPost[] {
+  const day = (n: NewsPost) => (n.ceremonyDate ?? n.publishedAt).iso;
+  const numbered = list.filter((n) => n.category === 'opening' && n.libraryNo);
+  const rank = (n: NewsPost) => {
+    if (n.category !== 'opening') return -1;
+    if (n.libraryNo) return n.libraryNo;
+    const before = numbered.filter((o) => day(o) <= day(n)).map((o) => o.libraryNo!);
+    return (before.length ? Math.max(...before) : 0) + 0.5;
+  };
+  return list
+    .map((n, i) => ({ n, i, r: rank(n) }))
+    .sort((a, b) => b.r - a.r || day(b.n).localeCompare(day(a.n)) || a.i - b.i)
+    .map((x) => x.n);
+}
+
 export async function getNews(): Promise<NewsPost[]> {
   'use cache';
   cacheLife('hours');
   cacheTag('news');
-  return must(await posts('news'), 'ข่าว').map(toNews);
+  return orderNews(must(await posts('news'), 'ข่าว').map(toNews));
 }
 
 export async function getNewsPost(slug: string): Promise<NewsPost | null> {

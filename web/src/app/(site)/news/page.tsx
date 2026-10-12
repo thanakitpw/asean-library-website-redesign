@@ -33,6 +33,7 @@ export default async function NewsPage() {
             searchPlaceholder="ค้นหาข่าว เช่น ชื่อจังหวัด"
             emptyText="ไม่พบข่าวที่ตรงกับคำค้น"
             listClassName="cards"
+            pageSize={15}
             items={news.map((n, i) => ({
               key: n.slug,
               cats: [n.category],

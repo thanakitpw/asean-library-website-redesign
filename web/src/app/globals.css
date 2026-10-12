@@ -347,6 +347,13 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .pager a{min-width:44px;height:44px;padding:0 12px;border-radius:999px;display:grid;place-items:center;font-weight:500;background:#fff;border:1px solid var(--line);color:var(--text-2);transition:all .15s}
 .pager a:hover{border-color:var(--navy);color:var(--navy)}
 .pager a.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.pager{flex-wrap:wrap}
+.pager button{min-width:44px;height:44px;padding:0 12px;border-radius:999px;display:grid;place-items:center;font-weight:500;background:#fff;border:1px solid var(--line);color:var(--text-2);transition:all .15s}
+.pager button:hover:not(:disabled){border-color:var(--navy);color:var(--navy)}
+.pager button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.pager button:disabled{opacity:.4;cursor:default}
+.pager .gap{min-width:24px;display:grid;place-items:center;color:var(--text-3)}
+.result-note{scroll-margin-top:110px}
 
 /* ---- Article / news detail ---- */
 .read{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:48px;align-items:start}
