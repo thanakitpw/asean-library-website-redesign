@@ -84,7 +84,7 @@ export default async function NewsDetailPage({ params }: PageProps<'/news/[slug]
                   <div className="photo-grid">
                     {post.gallery.map((src, i) => (
                       <a key={src} href={src} data-lightbox data-group="news" data-caption={`${post.title} (${i + 1}/${post.gallery!.length})`}>
-                        <Image src={src} alt={`ภาพที่ ${i + 1}`} width={600} height={450} sizes="(max-width: 600px) 50vw, (max-width: 1100px) 33vw, 280px" />
+                        <Image src={src} alt={`ภาพที่ ${i + 1}`} width={600} height={450} sizes="(max-width: 600px) 50vw, (max-width: 1100px) 50vw, 420px" />
                       </a>
                     ))}
                   </div>
