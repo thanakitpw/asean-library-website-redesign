@@ -49,8 +49,12 @@ function postBase(r: PostRow) {
   };
 }
 
+/** รูปปกสำรองของข่าวพิธีเปิดที่ไม่มีรูป (แบนเนอร์โครงการ) */
+export const DEFAULT_OPENING_COVER = '/images/cover-default.png';
+
 const toNews = (r: PostRow): NewsPost => ({
   ...postBase(r),
+  cover: opt(r.cover) ?? (r.news_category === 'opening' ? DEFAULT_OPENING_COVER : undefined),
   type: 'news',
   category: r.news_category as NewsCategory,
   province: opt(r.province),
@@ -217,9 +221,9 @@ export async function getInfographics(): Promise<{ title: string; image: string 
 export async function getAlbums(): Promise<Album[]> {
   const [own, news] = await Promise.all([getOwnAlbums(), getNews()]);
   const openings: Album[] = news
-    .filter((n) => n.category === 'opening' && (n.cover || n.gallery?.length))
+    .filter((n) => n.category === 'opening' && ((n.cover && n.cover !== DEFAULT_OPENING_COVER) || n.gallery?.length))
     .map((n) => {
-      const srcs = [...new Set([n.cover, ...(n.gallery ?? [])].filter((s): s is string => !!s))];
+      const srcs = [...new Set([n.cover, ...(n.gallery ?? [])].filter((s): s is string => !!s && s !== DEFAULT_OPENING_COVER))];
       const where = [n.school, n.province && (n.province === 'กรุงเทพมหานคร' ? n.province : `จังหวัด${n.province}`)].filter(Boolean).join(' ');
       return {
         slug: `news-${n.slug}`,
