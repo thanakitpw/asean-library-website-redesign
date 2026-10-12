@@ -355,6 +355,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .prose figure img{border-radius:var(--r)}
 .prose figcaption{font-size:13px;color:var(--text-3);margin-top:8px;text-align:center}
 .photo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.photo-row a{display:block;border-radius:14px;overflow:hidden}
 .photo-row img{border-radius:14px;aspect-ratio:4/3;object-fit:cover;width:100%;height:auto}
 .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:28px 0}
 .fact{background:var(--bg);border-radius:var(--r);padding:16px 18px;display:flex;gap:14px;align-items:center}

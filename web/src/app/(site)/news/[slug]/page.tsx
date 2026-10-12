@@ -95,8 +95,10 @@ export default async function NewsDetailPage({ params }: PageProps<'/news/[slug]
               {post.gallery && post.gallery.length > 0 && (
                 <>
                   <figure className="photo-row">
-                    {post.gallery.map((src) => (
-                      <Image key={src} src={src} alt="" width={400} height={300} sizes="(max-width: 860px) 50vw, 240px" />
+                    {post.gallery.map((src, i) => (
+                      <a key={src} href={src} target="_blank" rel="noopener" aria-label={`เปิดภาพที่ ${i + 1} ขนาดเต็ม`}>
+                        <Image src={src} alt="" width={400} height={300} sizes="(max-width: 860px) 50vw, 240px" />
+                      </a>
                     ))}
                   </figure>
                   <figcaption>
