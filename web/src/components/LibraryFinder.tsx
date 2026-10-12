@@ -8,6 +8,7 @@ import { TOTAL_PROVINCES, ZONES, zoneName, zoneOf } from '@/lib/format';
 import type { Library, Zone } from '@/lib/types';
 
 import { Icon } from './Icon';
+import { NetworkMap } from './NetworkMap';
 
 type Sort = 'new' | 'old' | 'name';
 
@@ -40,32 +41,36 @@ export function LibraryFinderView({ libraries, initialQuery = '' }: { libraries:
 
   return (
     <>
-      <div className="progress">
-        <div className="big">
-          <b>
-            {libraries.length}
-            <span style={{ fontSize: 24, color: 'var(--text-3)', fontWeight: 500 }}> / {TOTAL_PROVINCES}</span>
-          </b>
-          <span>จังหวัดมีห้องสมุดอาเซียนแล้ว</span>
-        </div>
-        <div className="regions" role="group" aria-label="กรองตามภาค">
-          {ZONES.map((z) => {
-            const have = counts.get(z.slug) ?? 0;
-            const on = zone === z.slug;
-            return (
-              <button
-                key={z.slug}
-                type="button"
-                className={`region r-${z.slug}${on ? ' on' : ''}`}
-                aria-pressed={on}
-                onClick={() => setZone(on ? 'all' : z.slug)}
-              >
-                <b>{have}</b>
-                <span>{z.label} · {z.provinces} จังหวัด</span>
-                <div className="bar"><i style={{ width: `${Math.round((have / z.provinces) * 100)}%` }} /></div>
-              </button>
-            );
-          })}
+      <div className="progress has-map">
+        <NetworkMap active={zone} onPick={(z) => setZone(zone === z ? 'all' : z)} />
+        <div className="side">
+          <p className="map-hint"><Icon name="pin" /> คลิกเลือกภาคบนแผนที่ หรือกดปุ่มด้านล่าง เพื่อดูห้องสมุดในภาคนั้น</p>
+          <div className="big">
+            <b>
+              {libraries.length}
+              <span style={{ fontSize: 24, color: 'var(--text-3)', fontWeight: 500 }}> / {TOTAL_PROVINCES}</span>
+            </b>
+            <span>จังหวัดมีห้องสมุดอาเซียนแล้ว</span>
+          </div>
+          <div className="regions" role="group" aria-label="กรองตามภาค">
+            {ZONES.map((z) => {
+              const have = counts.get(z.slug) ?? 0;
+              const on = zone === z.slug;
+              return (
+                <button
+                  key={z.slug}
+                  type="button"
+                  className={`region r-${z.slug}${on ? ' on' : ''}`}
+                  aria-pressed={on}
+                  onClick={() => setZone(on ? 'all' : z.slug)}
+                >
+                  <b>{have}</b>
+                  <span>{z.label} · {z.provinces} จังหวัด</span>
+                  <div className="bar"><i style={{ width: `${Math.round((have / z.provinces) * 100)}%` }} /></div>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 

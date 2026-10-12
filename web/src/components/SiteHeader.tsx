@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import { Icon } from './Icon';
 import { NAV } from './nav';
@@ -30,11 +30,23 @@ export function HeaderView({ pathname }: { pathname: string | null }) {
         </Link>
         <nav className="menu" aria-label="เมนูหลัก">
           {NAV.map((item) => {
-            const on = isActive(pathname, item.href);
-            return (
-              <Link key={item.href} href={item.href} onClick={close} className={on ? 'on' : undefined} aria-current={on ? 'page' : undefined}>
+            const on = isActive(pathname, item.href) || !!item.children?.some((c) => isActive(pathname, c.href.split(/[?#]/)[0]));
+            const link = (
+              <Link href={item.href} onClick={close} className={on ? 'on' : undefined} aria-current={pathname === item.href ? 'page' : undefined}>
                 {item.label}
+                {item.children && <Icon name="chev-down" />}
               </Link>
+            );
+            if (!item.children) return <Fragment key={item.href}>{link}</Fragment>;
+            return (
+              <div key={item.href} className="dd">
+                {link}
+                <div className="sub">
+                  {item.children.map((c) => (
+                    <Link key={c.href} href={c.href} onClick={close}>{c.label}</Link>
+                  ))}
+                </div>
+              </div>
             );
           })}
         </nav>
