@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { Filterable } from '@/components/Filterable';
 import { Icon } from '@/components/Icon';
@@ -43,17 +44,23 @@ export default async function GalleryPage() {
                 cats: [a.category],
                 text: `${a.title} ${a.place ?? ''}`,
                 node: (
-                  <a className="album" href={a.photos[0].src} data-lightbox data-caption={a.photos[0].caption}>
-                    <div className="stack">
-                      <Image src={a.photos[0].src} alt="" fill sizes="(max-width: 860px) 100vw, (max-width: 1100px) 50vw, 380px" />
-                      <span className="count"><Icon name="images" /> ดูภาพ</span>
-                    </div>
-                    <h3>{a.title}</h3>
-                    <div className="meta">
-                      {a.date && <span><Icon name="cal" /> {thaiDate(a.date)}</span>}
-                      {a.place && <span><Icon name={a.placeIcon ?? 'pin'} /> {a.place}</span>}
-                    </div>
-                  </a>
+                  <div>
+                    <a className="album" href={a.photos[0].src} data-lightbox data-group={a.slug} data-caption={a.photos[0].caption}>
+                      <div className="stack">
+                        <Image src={a.photos[0].src} alt="" fill sizes="(max-width: 860px) 100vw, (max-width: 1100px) 50vw, 380px" />
+                        <span className="count"><Icon name="images" /> {a.photos.length} ภาพ</span>
+                      </div>
+                      <h3>{a.title}</h3>
+                      <div className="meta">
+                        {a.date && <span><Icon name="cal" /> {thaiDate(a.date)}</span>}
+                        {a.place && <span><Icon name={a.placeIcon ?? 'pin'} /> {a.place}</span>}
+                      </div>
+                    </a>
+                    {a.photos.slice(1).map((p) => (
+                      <a key={p.src} href={p.src} data-lightbox data-group={a.slug} data-caption={p.caption} hidden aria-hidden="true" tabIndex={-1} />
+                    ))}
+                    {a.newsSlug && <Link className="album-news" href={`/news/${a.newsSlug}`}>อ่านข่าวพิธีเปิด <Icon name="chev-r" /></Link>}
+                  </div>
                 ),
               }))}
             />

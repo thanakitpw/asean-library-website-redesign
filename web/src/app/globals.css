@@ -369,6 +369,15 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .prose figure img{border-radius:var(--r)}
 .prose figcaption{font-size:13px;color:var(--text-3);margin-top:8px;text-align:center}
 .photo-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.news-photos{margin:32px 0 8px}
+.news-photos h2{display:flex;align-items:center;flex-wrap:wrap;gap:8px 10px;font-size:22px;font-weight:600;color:var(--navy-900);margin-bottom:16px}
+.news-photos h2 .icon{color:var(--gold)}
+.news-photos h2 span{font-size:14px;font-weight:400;color:var(--text-3)}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.photo-grid a{display:block;border-radius:14px;overflow:hidden;background:var(--bg)}
+.photo-grid img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;transition:transform .3s var(--ease)}
+.photo-grid a:hover img{transform:scale(1.04)}
+@media (max-width:600px){.photo-grid{grid-template-columns:1fr 1fr;gap:8px}}
 .cover-full{display:block;margin-bottom:28px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);background:#fff}
 .cover-full img{display:block;width:auto;max-width:100%;height:auto;margin:0 auto}
 .prose a[href$=".pdf"]{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:var(--navy);color:#fff;font-weight:500;text-decoration:none}
@@ -488,6 +497,8 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 /* ---- Gallery ---- */
 .albums{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .album{display:block;position:relative}
+.album-news{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:14px;font-weight:500;color:var(--navy)}
+.album-news:hover{text-decoration:underline}
 .album .stack{position:relative;aspect-ratio:4/3;margin:10px 10px 0 0}
 .album .stack::before,.album .stack::after{content:"";position:absolute;inset:0;border-radius:var(--r-lg);background:var(--blue-100);transform:translate(10px,-10px)}
 .album .stack::after{background:var(--blue-50);transform:translate(5px,-5px)}

@@ -17,8 +17,11 @@ export function Lightbox({ children }: { children: ReactNode }) {
   const [shots, setShots] = useState<Shot[]>([]);
   const [i, setI] = useState<number | null>(null);
 
-  const collect = () =>
-    Array.from(root.current?.querySelectorAll<HTMLAnchorElement>('a[data-lightbox]') ?? []).map((a) => ({
+  // data-group: เลื่อนดูเฉพาะภาพในกลุ่มเดียวกัน (เช่น อัลบั้มเดียวกัน)
+  const collect = (group?: string) =>
+    Array.from(root.current?.querySelectorAll<HTMLAnchorElement>('a[data-lightbox]') ?? [])
+      .filter((a) => !group || a.dataset.group === group)
+      .map((a) => ({
       src: a.getAttribute('href') ?? '',
       caption: a.dataset.caption ?? '',
     }));
@@ -27,7 +30,7 @@ export function Lightbox({ children }: { children: ReactNode }) {
     const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[data-lightbox]');
     if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
     e.preventDefault();
-    const list = collect();
+    const list = collect(a.dataset.group);
     opener.current = a;
     setShots(list);
     setI(Math.max(0, list.findIndex((s) => s.src === a.getAttribute('href'))));

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { Icon } from '@/components/Icon';
+import { Lightbox } from '@/components/Lightbox';
 import { PageHero } from '@/components/PageHero';
 import { ShareBar } from '@/components/ShareBar';
 import { getNews, getNewsNeighbors, getNewsPost } from '@/lib/content';
@@ -79,6 +80,23 @@ export default async function NewsDetailPage({ params }: PageProps<'/news/[slug]
             ) : (
               post.excerpt && <div className="prose"><p>{post.excerpt}</p></div>
             )}
+            {post.gallery && post.gallery.length > 0 && (
+              <section className="news-photos" aria-label="ภาพบรรยากาศ">
+                <h2>
+                  <Icon name="images" /> ภาพบรรยากาศ{isOpening ? 'พิธีเปิด' : ''}
+                  <span>{post.gallery.length} ภาพ · คลิกเพื่อดูภาพใหญ่</span>
+                </h2>
+                <Lightbox>
+                  <div className="photo-grid">
+                    {post.gallery.map((src, i) => (
+                      <a key={src} href={src} data-lightbox data-group="news" data-caption={`${post.title} (${i + 1}/${post.gallery!.length})`}>
+                        <Image src={src} alt={`ภาพที่ ${i + 1}`} width={600} height={450} sizes="(max-width: 600px) 50vw, (max-width: 1100px) 33vw, 280px" />
+                      </a>
+                    ))}
+                  </div>
+                </Lightbox>
+              </section>
+            )}
             <div className="prose" style={{ marginTop: 18 }}>
 
               {isOpening && (
@@ -97,20 +115,6 @@ export default async function NewsDetailPage({ params }: PageProps<'/news/[slug]
                 </>
               )}
 
-              {post.gallery && post.gallery.length > 0 && (
-                <>
-                  <figure className="photo-row">
-                    {post.gallery.map((src, i) => (
-                      <a key={src} href={src} target="_blank" rel="noopener" aria-label={`เปิดภาพที่ ${i + 1} ขนาดเต็ม`}>
-                        <Image src={src} alt="" width={400} height={300} sizes="(max-width: 860px) 50vw, 240px" />
-                      </a>
-                    ))}
-                  </figure>
-                  <figcaption>
-                    ภาพบรรยากาศ · <Link href="/gallery" style={{ color: 'var(--navy)', fontWeight: 500 }}>ดูอัลบั้มทั้งหมด</Link>
-                  </figcaption>
-                </>
-              )}
 
               {post.school && (
                 <blockquote>

@@ -194,7 +194,29 @@ export async function getInfographics(): Promise<{ title: string; image: string 
 }
 
 // ---------- albums ----------
+/** อัลบั้มในคลังภาพ: อัลบั้มที่เพิ่มในหลังบ้าน + อัลบั้มพิธีเปิดที่สร้างจากรูปในข่าวพิธีเปิดแต่ละแห่ง (ใหม่ก่อน) */
 export async function getAlbums(): Promise<Album[]> {
+  const [own, news] = await Promise.all([getOwnAlbums(), getNews()]);
+  const openings: Album[] = news
+    .filter((n) => n.category === 'opening' && (n.cover || n.gallery?.length))
+    .map((n) => {
+      const srcs = [...new Set([n.cover, ...(n.gallery ?? [])].filter((s): s is string => !!s))];
+      const where = [n.school, n.province && (n.province === 'กรุงเทพมหานคร' ? n.province : `จังหวัด${n.province}`)].filter(Boolean).join(' ');
+      return {
+        slug: `news-${n.slug}`,
+        title: n.libraryNo ? `แห่งที่ ${n.libraryNo}${n.school ? ` · ${n.school}` : ''}` : n.title,
+        category: 'opening',
+        date: n.ceremonyDate ?? n.publishedAt,
+        place: n.province,
+        newsSlug: n.slug,
+        photos: srcs.map((src, i) => ({ src, caption: `${n.libraryNo ? `พิธีเปิดห้องสมุดอาเซียนแห่งที่ ${n.libraryNo}` : 'พิธีเปิดห้องสมุดอาเซียน'} ${where} (${i + 1}/${srcs.length})` })),
+      };
+    });
+  const time = (a: Album) => (a.date ? Date.parse(a.date.iso) : 0);
+  return [...openings, ...own].sort((a, b) => time(b) - time(a));
+}
+
+async function getOwnAlbums(): Promise<Album[]> {
   'use cache';
   cacheLife('hours');
   cacheTag('albums');

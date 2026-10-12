@@ -90,5 +90,6 @@ export type Album = {
   date?: PubDate;
   place?: string;
   placeIcon?: IconName;
+  newsSlug?: string; // อัลบั้มพิธีเปิดที่สร้างจากข่าว
   photos: { src: string; caption: string }[];
 };
