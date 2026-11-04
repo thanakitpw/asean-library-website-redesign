@@ -1,111 +1,49 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { ContactForm } from '@/components/ContactForm';
 import { Icon } from '@/components/Icon';
 import { CONTACT, SOCIAL } from '@/components/nav';
-import { PageHero, SectionHead } from '@/components/PageHero';
-import { getLibraries } from '@/lib/content';
 
 export const metadata: Metadata = {
   title: 'ติดต่อเรา',
-  description: 'ติดต่อโครงการห้องสมุดอาเซียน กรมอาเซียน กระทรวงการต่างประเทศ เพื่อสอบถามข้อมูล ขอศึกษาดูงาน หรือจัดกิจกรรมร่วมกัน',
+  description: 'ที่อยู่ แผนที่ เบอร์โทรศัพท์ และช่องทางติดต่อโครงการห้องสมุดอาเซียน กรมอาเซียน กระทรวงการต่างประเทศ',
 };
 
-const FAQ = [
-  {
-    q: 'ประชาชนทั่วไปเข้าใช้ห้องสมุดอาเซียนได้หรือไม่',
-    a: (
-      <>
-        ได้ ห้องสมุดอาเซียนเปิดให้ชุมชนและประชาชนทั่วไปเข้าใช้บริการ เนื่องจากห้องสมุดตั้งอยู่ในโรงเรียน
-        กรุณาติดต่อโรงเรียนล่วงหน้าเพื่อสอบถามวันและเวลาเปิด ดูเบอร์โทรของแต่ละโรงเรียนได้ที่หน้า{' '}
-        <Link href="/network" style={{ color: 'var(--navy)', fontWeight: 500 }}>เครือข่ายห้องสมุด</Link>
-      </>
-    ),
-  },
-  { q: 'ขอศึกษาดูงานห้องสมุดอาเซียนต้องทำอย่างไร', a: 'กรอกแบบฟอร์มด้านบนโดยเลือกหัวข้อ “ขอศึกษาดูงาน” พร้อมระบุจำนวนผู้เข้าร่วมและช่วงเวลาที่สะดวก เจ้าหน้าที่จะประสานกับโรงเรียนให้' },
-  { q: 'โรงเรียนของเราต้องการเป็นห้องสมุดอาเซียนได้หรือไม่', a: 'โครงการจัดตั้งห้องสมุดอาเซียนจังหวัดละ 1 แห่ง ซึ่งครบทั้ง 77 จังหวัดแล้ว โรงเรียนที่สนใจร่วมกิจกรรมหรือรับสื่อความรู้เกี่ยวกับอาเซียนสามารถติดต่อกรมอาเซียนได้' },
-  {
-    q: 'ติดตามข่าวพิธีเปิดและกิจกรรมได้ที่ไหน',
-    a: (
-      <>
-        ดูได้ที่หน้า <Link href="/news" style={{ color: 'var(--navy)', fontWeight: 500 }}>ข่าวสาร</Link> และเพจ Facebook ASEAN Thailand ของกรมอาเซียน
-      </>
-    ),
-  },
-];
+const MAP_EMBED =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.2624071987907!2d100.52265621414314!3d13.763042900742548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e2994beb8d7399%3A0x3af06b6c03b3fef4!2z4LiB4Lij4Liw4LiX4Lij4Lin4LiH4LiB4Liy4Lij4LiV4LmI4Liy4LiH4Lib4Lij4Liw4LmA4LiX4Lio!5e0!3m2!1sth!2sth!4v1605342378523!5m2!1sth!2sth';
 
-export default async function ContactPage() {
-  const libraries = await getLibraries();
-  const provinces = [...new Set(libraries.map((l) => l.province))].sort((a, b) => a.localeCompare(b, 'th'));
-
+export default function ContactPage() {
   return (
-    <>
-      <PageHero
-        tint
-        tag="ติดต่อเรา"
-        tagIcon="phone"
-        title="ติดต่อโครงการห้องสมุดอาเซียน"
-        lead="สอบถามข้อมูลโครงการ ขอศึกษาดูงาน หรือเสนอจัดกิจกรรมส่งเสริมความรู้เกี่ยวกับอาเซียน"
-        crumbs={[{ label: 'ติดต่อ' }]}
-      />
-      <section className="page-body tint">
-        <div className="container contact-grid">
-          <div className="c-cards">
-            <div className="c-card">
-              <div className="ic"><Icon name="pin" /></div>
-              <div><small>ที่อยู่</small><b>{CONTACT.org}<br />{CONTACT.address}</b></div>
-            </div>
-            <div className="c-card">
-              <div className="ic"><Icon name="phone" /></div>
-              <div>
-                <small>โทรศัพท์</small><b><a href={CONTACT.tel}>{CONTACT.phone}</a></b>
-                <small style={{ marginTop: 4 }}>{CONTACT.hours}</small>
-              </div>
-            </div>
-            <div className="c-card">
-              <div className="ic"><Icon name="globe" /></div>
-              <div>
-                <small>เว็บไซต์และโซเชียล</small><b>{CONTACT.website}</b>
-                <div className="share" style={{ marginTop: 10, paddingTop: 0, border: 0 }}>
-                  <a href={SOCIAL.facebook} aria-label="Facebook ASEAN Thailand"><Icon name="fb" /></a>
-                  <a href={SOCIAL.x} aria-label="X ASEAN_THAILAND"><Icon name="x" /></a>
-                  <a href={SOCIAL.instagram} aria-label="Instagram aseanthailand"><Icon name="ig" /></a>
-                </div>
-              </div>
-            </div>
-            <div className="map">
-              <div>
-                <div className="pinbig"><Icon name="pin" /></div>
-                <b>กระทรวงการต่างประเทศ ถนนศรีอยุธยา</b>
-                <br />
-                <a
-                  className="link-more"
-                  style={{ marginTop: 12 }}
-                  href={`https://maps.google.com/?q=${encodeURIComponent('กระทรวงการต่างประเทศ ถนนศรีอยุธยา')}`}
-                >
-                  เปิดใน Google Maps <Icon name="arrow" />
-                </a>
-              </div>
-            </div>
-          </div>
-          <ContactForm provinces={provinces} />
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <SectionHead tag="คำถามที่พบบ่อย" icon="bulb" title="ก่อนติดต่อ ลองดูคำตอบเหล่านี้" />
-          <div className="faq">
-            {FAQ.map((f, i) => (
-              <details key={f.q} open={i === 0}>
-                <summary>{f.q} <Icon name="chev-r" /></summary>
-                <p>{f.a}</p>
-              </details>
-            ))}
+    <section className="contact-page">
+      <div className="container">
+        <nav className="crumb" aria-label="breadcrumb">
+          <Link href="/">หน้าแรก</Link>
+          <Icon name="chev-r" />
+          <span aria-current="page">ติดต่อเรา</span>
+        </nav>
+        <h1>ติดต่อเรา</h1>
+        <iframe
+          className="contact-map"
+          src={MAP_EMBED}
+          title="แผนที่กระทรวงการต่างประเทศ ถนนศรีอยุธยา"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          allowFullScreen
+        />
+        <div className="contact-info">
+          <Icon name="pin" />
+          <div>
+            <address>ที่อยู่ {CONTACT.address}</address>
+            <p><b>โทรศัพท์</b> <a href={CONTACT.tel}>{CONTACT.phone}</a></p>
+            <p><b>Website</b> <a href={`https://${CONTACT.website}`} target="_blank" rel="noopener">{CONTACT.website}</a></p>
+            <ul>
+              <li><a href={SOCIAL.facebook} target="_blank" rel="noopener"><span className="soc fb"><Icon name="fb" /></span>: ASEAN Thailand</a></li>
+              <li><a href={SOCIAL.x} target="_blank" rel="noopener"><span className="soc x"><Icon name="x" /></span>: ASEAN_THAILAND</a></li>
+              <li><a href={SOCIAL.instagram} target="_blank" rel="noopener"><span className="soc ig"><Icon name="ig" /></span>: aseanthailand</a></li>
+            </ul>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

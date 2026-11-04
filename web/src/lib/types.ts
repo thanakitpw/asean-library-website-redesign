@@ -6,7 +6,7 @@ import type { IconName } from '@/components/icon-sprite';
 export type Tone = 'navy' | 'green' | 'gold' | 'blue';
 
 /** ภูมิภาคตามที่ลูกค้ายืนยัน: เหนือ 17 / อีสาน 20 / กลาง-ตะวันออก 26 / ใต้ 14 จังหวัด */
-export type Zone = 'north' | 'northeast' | 'central' | 'south';
+export type Zone = 'north' | 'northeast' | 'central' | 'east' | 'west' | 'south';
 
 /** วันที่ที่บางข่าวรู้แค่ปี */
 export type PubDate = { iso: string; precision: 'day' | 'year' };
