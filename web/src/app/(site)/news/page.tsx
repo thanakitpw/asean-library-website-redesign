@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 
 export default async function NewsPage() {
   const news = await getNews();
+  const years = [...new Set(news.map((n) => n.fiscalYear))].sort((a, b) => b - a);
   return (
     <>
       <PageHero
@@ -34,9 +35,14 @@ export default async function NewsPage() {
             emptyText="ไม่พบข่าวที่ตรงกับคำค้น"
             listClassName="cards"
             pageSize={15}
+            select={{
+              placeholder: 'เลือกปีข่าวสาร',
+              options: years.map((y) => ({ value: String(y), label: `ปีงบประมาณ ${y}` })),
+            }}
             items={news.map((n, i) => ({
               key: n.slug,
               cats: [n.category],
+              group: String(n.fiscalYear),
               text: `${n.title} ${n.province ?? ''}`,
               node: <NewsCard post={n} wide={i === 0} />,
             }))}

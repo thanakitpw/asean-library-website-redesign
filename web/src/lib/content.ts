@@ -52,7 +52,13 @@ function postBase(r: PostRow) {
 /** รูปปกสำรองของข่าวพิธีเปิดที่ไม่มีรูป (แบนเนอร์โครงการ) */
 export const DEFAULT_OPENING_COVER = '/images/cover-default.png';
 
-const toNews = (r: PostRow): NewsPost => ({
+/** ปีงบประมาณไทย (พ.ศ.) ของวันที่: เริ่ม 1 ต.ค. ของปีก่อนหน้า */
+const fiscalYearOf = (iso: string) => {
+  const [y, m] = iso.split('-').map(Number);
+  return y + 543 + (m >= 10 ? 1 : 0);
+};
+
+const toNews = (r: PostRow, budgetYear?: number): NewsPost => ({
   ...postBase(r),
   cover: opt(r.cover) ?? (r.news_category === 'opening' ? DEFAULT_OPENING_COVER : undefined),
   type: 'news',
@@ -61,7 +67,16 @@ const toNews = (r: PostRow): NewsPost => ({
   libraryNo: opt(r.library_no),
   school: opt(r.school),
   ceremonyDate: pubDate(r.ceremony_on, r.ceremony_precision),
+  fiscalYear: budgetYear ?? fiscalYearOf(r.ceremony_on ?? r.published_on!),
 });
+
+/** เลขห้องสมุด → ปีงบประมาณ */
+const budgetYears = async () =>
+  new Map(
+    must(await supabase().from('libraries').select('no, opened_year_be').not('no', 'is', null), 'ห้องสมุด').map(
+      (l) => [l.no!, l.opened_year_be] as const,
+    ),
+  );
 
 const toArticle = (r: PostRow): ArticlePost => ({
   ...postBase(r),
@@ -104,19 +119,21 @@ function orderNews(list: NewsPost[]): NewsPost[] {
 export async function getNews(): Promise<NewsPost[]> {
   'use cache';
   cacheLife('hours');
-  cacheTag('news');
-  return orderNews(must(await posts('news'), 'ข่าว').map(toNews));
+  cacheTag('news', 'libraries');
+  const [rows, years] = await Promise.all([posts('news'), budgetYears()]);
+  return orderNews(must(rows, 'ข่าว').map((r) => toNews(r, r.library_no ? years.get(r.library_no) : undefined)));
 }
 
 export async function getNewsPost(slug: string): Promise<NewsPost | null> {
   'use cache';
   cacheLife('hours');
-  cacheTag('news');
-  const row = must(
-    await supabase().from('posts').select('*').eq('type', 'news').eq('slug', slug).maybeSingle(),
-    `ข่าว ${slug}`,
-  );
-  return row ? toNews(row) : null;
+  cacheTag('news', 'libraries');
+  const [res, years] = await Promise.all([
+    supabase().from('posts').select('*').eq('type', 'news').eq('slug', slug).maybeSingle(),
+    budgetYears(),
+  ]);
+  const row = must(res, `ข่าว ${slug}`);
+  return row ? toNews(row, row.library_no ? years.get(row.library_no) : undefined) : null;
 }
 
 /** ข่าวก่อนหน้า/ถัดไปตามลำดับเวลา */

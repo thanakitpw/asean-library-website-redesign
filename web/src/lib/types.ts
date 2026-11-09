@@ -38,6 +38,8 @@ export type NewsPost = PostBase & {
   libraryNo?: number;
   school?: string;
   ceremonyDate?: PubDate;
+  /** ปีงบประมาณ (พ.ศ.) — พิธีเปิดใช้ปีงบประมาณของห้องสมุดตามรายชื่อของกรมอาเซียน */
+  fiscalYear: number;
 };
 
 export type ArticlePost = PostBase & {

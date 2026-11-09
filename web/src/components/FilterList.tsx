@@ -10,6 +10,8 @@ export type FilterItem = {
   cats: string[];
   /** ข้อความสำหรับค้นหา */
   text: string;
+  /** ค่าที่ใช้กรองด้วยตัวเลือก select (เช่น ปีงบประมาณ) */
+  group?: string;
   node: ReactNode;
 };
 
@@ -22,6 +24,8 @@ type Props = {
   emptyText: string;
   /** จำนวนต่อหน้า (ไม่ใส่ = แสดงทั้งหมด) */
   pageSize?: number;
+  /** ตัวเลือกกรองเพิ่ม (dropdown) — กรองตาม item.group; ค่าว่าง = ทั้งหมด */
+  select?: { placeholder: string; options: { value: string; label: string }[] };
 };
 
 /** ตัวกรองหมวด + ช่องค้นหา; อ่านหมวดเริ่มต้นจาก ?c= */
@@ -40,9 +44,11 @@ export function FilterListView({
   searchPlaceholder,
   emptyText,
   pageSize,
+  select,
   initial = 'all',
 }: Props & { initial?: string }) {
   const [cat, setCat] = useState(initial);
+  const [group, setGroup] = useState('');
   const [q, setQ] = useState('');
   const [page, setPage] = useState(1);
   const top = useRef<HTMLParagraphElement>(null);
@@ -51,10 +57,15 @@ export function FilterListView({
     const t = q.trim().toLowerCase();
     return new Set(
       items
-        .filter((it) => (cat === 'all' || it.cats.includes(cat)) && (!t || it.text.toLowerCase().includes(t)))
+        .filter(
+          (it) =>
+            (cat === 'all' || it.cats.includes(cat)) &&
+            (!group || it.group === group) &&
+            (!t || it.text.toLowerCase().includes(t)),
+        )
         .map((it) => it.key),
     );
-  }, [items, cat, q]);
+  }, [items, cat, group, q]);
 
   const matched = items.filter((it) => visible.has(it.key));
   const pages = pageSize ? Math.max(1, Math.ceil(matched.length / pageSize)) : 1;
@@ -84,10 +95,30 @@ export function FilterListView({
             </button>
           ))}
         </div>
-        <label className="search">
-          <Icon name="search" />
-          <input type="search" placeholder={searchPlaceholder} aria-label={searchPlaceholder} value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} />
-        </label>
+        <div className="toolbar-end">
+          <label className="search">
+            <Icon name="search" />
+            <input type="search" placeholder={searchPlaceholder} aria-label={searchPlaceholder} value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} />
+          </label>
+          {select && (
+            <select
+              className={group ? 'pick on' : 'pick'}
+              aria-label={select.placeholder}
+              value={group}
+              onChange={(e) => {
+                setGroup(e.target.value);
+                setPage(1);
+              }}
+            >
+              <option value="">{select.placeholder}</option>
+              {select.options.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+          )}
+        </div>
       </div>
       <p className="result-note" aria-live="polite" ref={top}>
         {pages > 1 ? `ทั้งหมด ${visible.size} รายการ · หน้า ${current} จาก ${pages}` : `แสดง ${visible.size} รายการ`}
