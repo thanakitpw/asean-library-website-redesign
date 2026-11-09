@@ -3,7 +3,7 @@
 import type { ArticleCategory, CategoryInfo, GlossaryGroup } from '@/lib/types';
 
 export const ARTICLE_CATEGORIES: CategoryInfo<ArticleCategory>[] = [
-  { slug: 'about', name: 'เกี่ยวกับอาเซียน', short: 'เกี่ยวกับอาเซียน', desc: 'ประวัติ กฎบัตร และ 10 ประเทศสมาชิก', icon: 'globe', tone: 'navy' },
+  { slug: 'about', name: 'เกี่ยวกับอาเซียน', short: 'เกี่ยวกับอาเซียน', desc: 'ประวัติ กฎบัตร และ 11 ประเทศสมาชิก', icon: 'globe', tone: 'navy' },
   { slug: 'apsc', name: 'เสาการเมืองและความมั่นคง', short: 'การเมืองและความมั่นคง', desc: 'APSC ภูมิภาคที่สงบสุขและมีเสถียรภาพ', icon: 'shield', tone: 'navy' },
   { slug: 'aec', name: 'เสาเศรษฐกิจ', short: 'เศรษฐกิจ', desc: 'AEC ตลาดและฐานการผลิตเดียว', icon: 'trend', tone: 'green' },
   { slug: 'ascc', name: 'เสาสังคมและวัฒนธรรม', short: 'สังคมและวัฒนธรรม', desc: 'ASCC ประชาชนเป็นศูนย์กลาง', icon: 'heart', tone: 'gold' },
@@ -27,6 +27,7 @@ export const DIAL_CODES: { country: string; code: string }[] = [
   { country: 'เมียนมา', code: '+95' },
   { country: 'ฟิลิปปินส์', code: '+63' },
   { country: 'สิงคโปร์', code: '+65' },
+  { country: 'ติมอร์-เลสเต', code: '+670' },
   { country: 'เวียดนาม', code: '+84' },
 ];
 
@@ -40,5 +41,6 @@ export const MEMBER_COUNTRIES: { code: string; th: string; en: string }[] = [
   { code: 'MM', th: 'เมียนมา', en: 'Myanmar' },
   { code: 'PH', th: 'ฟิลิปปินส์', en: 'Philippines' },
   { code: 'SG', th: 'สิงคโปร์', en: 'Singapore' },
+  { code: 'TL', th: 'ติมอร์-เลสเต', en: 'Timor-Leste' },
   { code: 'VN', th: 'เวียดนาม', en: 'Viet Nam' },
 ];

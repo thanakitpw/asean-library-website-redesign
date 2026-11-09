@@ -12,7 +12,7 @@ import { MEMBER_COUNTRIES } from '@/lib/taxonomy';
 import type { ArticleCategory } from '@/lib/types';
 
 const PATHS = [
-  { tone: 'navy', icon: 'grad', title: 'สำหรับนักเรียน', text: 'อ่านหนังสือ เล่นเกมความรู้ และเรียนรู้เพื่อนบ้านอาเซียนทั้ง 10 ประเทศ', go: 'เริ่มเรียนรู้', href: '/learn' },
+  { tone: 'navy', icon: 'grad', title: 'สำหรับนักเรียน', text: 'อ่านหนังสือ เล่นเกมความรู้ และเรียนรู้เพื่อนบ้านอาเซียนทั้ง 11 ประเทศ', go: 'เริ่มเรียนรู้', href: '/learn' },
   { tone: 'green', icon: 'school', title: 'สำหรับครูและโรงเรียน', text: 'สื่อการสอน แผนกิจกรรม และแนวทางใช้ห้องสมุดอาเซียนในชั้นเรียน', go: 'ดูสื่อการสอน', href: '/learn?c=move#list' },
   { tone: 'gold', icon: 'users', title: 'สำหรับชุมชน', text: 'ประชาชนทั่วไปเข้าใช้บริการและร่วมกิจกรรมของห้องสมุดอาเซียนในพื้นที่', go: 'ค้นหาใกล้บ้าน', href: '/network' },
   { tone: 'blue', icon: 'building', title: 'สำหรับหน่วยงาน', text: 'ภาครัฐและเอกชนที่สนใจศึกษาดูงานหรือร่วมสนับสนุนโครงการ', go: 'ขอศึกษาดูงาน', href: '/contact' },
@@ -77,7 +77,7 @@ export default async function HomePage() {
               <span><Icon name="library" /> {libraries.length} ห้องสมุด</span>
               <span><Icon name="pin" /> 77 จังหวัด</span>
               <span><Icon name="clock" /> ตั้งแต่ปี {firstYear}</span>
-              <span><Icon name="globe" /> 10 ประเทศสมาชิก</span>
+              <span><Icon name="globe" /> 11 ประเทศสมาชิก</span>
             </div>
           </div>
           <div className="collage" aria-hidden="true">
@@ -152,7 +152,7 @@ export default async function HomePage() {
           <div className="stat"><div className="ic"><Icon name="library" /></div><div><b>{libraries.length}</b><span>ห้องสมุดที่ส่งมอบแล้ว</span></div></div>
           <div className="stat"><div className="ic"><Icon name="pin" /></div><div><b>{new Set(libraries.map((l) => l.province)).size}</b><span>จังหวัดทั่วประเทศ</span></div></div>
           <div className="stat"><div className="ic"><Icon name="clock" /></div><div><b>{years}+</b><span>ปีที่ดำเนินโครงการ</span></div></div>
-          <div className="stat"><div className="ic"><Icon name="globe" /></div><div><b>10</b><span>ประเทศสมาชิกอาเซียน</span></div></div>
+          <div className="stat"><div className="ic"><Icon name="globe" /></div><div><b>11</b><span>ประเทศสมาชิกอาเซียน</span></div></div>
         </div>
       </section>
 
@@ -217,7 +217,7 @@ export default async function HomePage() {
       <section className="section">
         <div className="container">
           <SectionHead
-            tag="10 ประเทศสมาชิก"
+            tag="11 ประเทศสมาชิก"
             icon="globe"
             tone="green"
             title="รู้จักเพื่อนบ้านอาเซียน"

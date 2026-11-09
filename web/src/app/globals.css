@@ -184,7 +184,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .term-card .icon{margin-left:auto;color:var(--text-3)}
 
 /* ---- Member countries ---- */
-.countries{display:grid;grid-template-columns:repeat(10,1fr);gap:12px}
+.countries{display:grid;grid-template-columns:repeat(11,1fr);gap:12px}
 .cty{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 10px;text-align:center;transition:all .2s var(--ease)}
 .cty:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm);border-color:var(--navy)}
 .cty .cc{width:48px;height:48px;border-radius:50%;margin:0 auto 10px;display:grid;place-items:center;font-weight:700;font-size:14px;color:#fff;background:var(--navy)}
@@ -238,7 +238,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .n-feat{min-height:420px}
   .pillars{grid-template-columns:1fr}
   .word{grid-template-columns:1fr}
-  .countries{grid-template-columns:repeat(5,1fr)}
+  .countries{grid-template-columns:repeat(6,1fr)}
   .footer .grid{grid-template-columns:1fr 1fr}
   .cta-band{grid-template-columns:1fr;padding:40px}
 }
@@ -270,7 +270,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .n-item img{width:110px;height:90px}
   .n-feat h3{font-size:22px}
   .wotd{padding:28px}.wotd .term{font-size:44px}
-  .countries{grid-template-columns:repeat(2,1fr)}
+  .countries{grid-template-columns:repeat(3,1fr)}
   .gallery{grid-template-columns:1fr 1fr;grid-auto-rows:160px}
   .gallery a:nth-child(1){grid-column:span 2;grid-row:span 1}
   .gallery a:nth-child(4){grid-row:span 1}
